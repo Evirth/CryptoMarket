@@ -8,7 +8,7 @@ public class Command {
     public Command(String name, String description) {
         this.name = name;
         this.description = description;
-        this.usage = "/cryptomarket " + this.name;
+        this.usage = "/cm " + this.name;
     }
 
     public Command(String name, String description, String usage) {

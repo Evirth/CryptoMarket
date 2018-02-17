@@ -1,4 +1,4 @@
-package pl.csrv.divinecraft.evirth.cryptomarket.commands;
+package pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
 import com.lucadev.coinmarketcap.CoinMarketCap;
 import com.lucadev.coinmarketcap.model.CoinMarket;
