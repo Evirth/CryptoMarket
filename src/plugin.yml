@@ -1,0 +1,31 @@
+name: CryptoMarket
+version: 1.0
+description: Cryptocurrency market simulator
+author: Evirth
+main: pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket
+commands:
+  cryptomarket:
+    description: Type /cryptomarket help to get more information.
+    aliases: [cm]
+    usage: /cm help
+  cm help:
+    description: Gets information about the CryptoMarket plugin.
+    usage: /cryptomarket help
+  cm balance:
+    description: Shows current balance.
+    usage: /cryptomarket balance
+  cm withdraw:
+    description: Exchanges cryptocurrencies to Diamonds.
+    usage: /cryptomarket withdraw BTC 1
+  cm deposit:
+    description: Exchanges Diamonds to cryptocurrencies.
+    usage: /cryptomarket deposit 10
+  cm transfer:
+    description: Transfers cryptocurrencies to another player's account.
+    usage: /cryptomarket transfer BTC 1 Evirth
+  cm exchange:
+    description: Exchanges cryptocurrency to another one.
+    usage: /cryptomarket exchange BTC 1 IOTA
+  cm price:
+    description: Shows the current price of cryptocurrency.
+    usage: /cryptomarket price IOTA
