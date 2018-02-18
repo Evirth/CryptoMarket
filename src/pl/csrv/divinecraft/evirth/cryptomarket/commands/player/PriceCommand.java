@@ -5,11 +5,11 @@ import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.helper.CommandHelper;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
 
 import java.util.List;
 
-public class PriceCommand extends CommandHelper {
+public class PriceCommand extends CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         StringBuilder sb = new StringBuilder();

@@ -1,20 +1,19 @@
-package pl.csrv.divinecraft.evirth.cryptomarket.commands.helper;
+package pl.csrv.divinecraft.evirth.cryptomarket.commands;
 
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.model.Command;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.player.*;
 
-public class CommandHelper implements CommandExecutor {
+public class CommandExecutor implements org.bukkit.command.CommandExecutor {
 
     protected static Command[] AvailableCommands = new Command[] {
             new Command("help", "Gets information about the CryptoMarket plugin."),
             new Command("balance", "Shows current balance."),
-            new Command("withdraw", "Exchanges cryptocurrencies to Diamonds.", "/cm withdraw BTC 1"),
-            new Command("deposit", "Exchanges Diamonds to cryptocurrencies.", "/cm deposit 10"),
-            new Command("transfer", "Transfers cryptocurrencies to another player's account.", "/cm transfer BTC 1 Evirth"),
-            new Command("exchange", "Exchanges cryptocurrency to another one.", "/cm exchange BTC 1 IOTA"),
+            new Command("withdraw", "Exchanges cryptocurrencies to Diamonds.", "/cm withdraw 10 Bitcoin"),
+            new Command("deposit", "Exchanges Diamonds to cryptocurrencies.", "/cm deposit 10 Bitcoin"),
+            new Command("transfer", "Transfers cryptocurrencies to another player's account.", "/cm transfer Bitcoin 1 Evirth"),
+            new Command("exchange", "Exchanges cryptocurrency to another one.", "/cm exchange Bitcoin 1 IOTA"),
             new Command("price", "Shows the current price of cryptocurrency.", "/cm price IOTA"),
             new Command("global", "Gets information about the market cap.", "/cm global")
     };
