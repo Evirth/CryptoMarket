@@ -5,16 +5,18 @@ import pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
 import java.util.Date;
 
 public class Transaction {
+    private String playerName;
     private Date transactionDate;
     private String fromCurrency;
     private String toCurrency;
     private TransactionType type;
     private double amountOfCrypto;
     private int amountOfDiamonds;
+    private double cryptoPriceInUSD;
 
     public Transaction() { }
 
-    public Transaction(String playerName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds) {
+    public Transaction(String playerName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds, double cryptoPriceInUSD) {
         this.playerName = playerName;
         this.transactionDate = transactionDate;
         this.fromCurrency = fromCurrency;
@@ -22,6 +24,7 @@ public class Transaction {
         this.type = type;
         this.amountOfCrypto = amountOfCrypto;
         this.amountOfDiamonds = amountOfDiamonds;
+        this.cryptoPriceInUSD = cryptoPriceInUSD;
     }
 
     public String getPlayerName() {
@@ -31,8 +34,6 @@ public class Transaction {
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
-
-    private String playerName;
 
     public Date getTransactionDate() {
         return transactionDate;
@@ -80,5 +81,13 @@ public class Transaction {
 
     public void setAmountOfDiamonds(int amountOfDiamonds) {
         this.amountOfDiamonds = amountOfDiamonds;
+    }
+
+    public double getCryptoPriceInUSD() {
+        return cryptoPriceInUSD;
+    }
+
+    public void setCryptoPriceInUSD(double cryptoPriceInUSD) {
+        this.cryptoPriceInUSD = cryptoPriceInUSD;
     }
 }

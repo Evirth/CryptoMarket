@@ -52,7 +52,7 @@ public class CommandExecutor implements org.bukkit.command.CommandExecutor {
                 new PriceCommand().onCommand(commandSender, command, s, strings);
                 break;
             case "global":
-                new PriceCommand().onCommand(commandSender, command, s, strings);
+                new GlobalCommand().onCommand(commandSender, command, s, strings);
                 break;
         }
         return true;

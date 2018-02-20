@@ -7,11 +7,13 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
 import pl.csrv.divinecraft.evirth.cryptomarket.helpers.XmlSerializationHelper;
+import pl.csrv.divinecraft.evirth.cryptomarket.models.Coin;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.PlayerAccount;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.Transaction;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Player {
@@ -33,16 +35,26 @@ public class Player {
                 return;
             }
 
-            int diamondsFromBalance = PlayerAccount.calculateDiamondPriceOfCoins(crypto, this.account.getBalance().get(crypto));
+            Coin coin = this.account.getBalance().get(crypto);
+            int diamondsFromBalance = PlayerAccount.calculateDiamondPriceOfCoins(coin.getName(), coin.getAmount());
             if (diamondsFromBalance >= amount) {
-                double diamondsAsCrypto = amount * CryptoMarket.config.price / CoinMarketCap.ticker(crypto).get().getPriceUSD();
-                double actualBalance = this.account.getBalance().get(crypto);
-                Map<String, Double> m = new HashMap<>(this.account.getBalance());
-                m.put(crypto, actualBalance - diamondsAsCrypto);
+                double coinPrice = CoinMarketCap.ticker(coin.getName()).get().getPriceUSD();
+                double diamondsAsCrypto = amount * CryptoMarket.config.price / coinPrice;
+                double actualBalance = coin.getAmount();
+
+                Map<String, Coin> m = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+                m.putAll(this.account.getBalance());
+                double resultBalance = actualBalance - diamondsAsCrypto;
+                if (resultBalance != 0) {
+                    coin.setAmount(resultBalance);
+                    m.put(coin.getName(), coin);
+                } else {
+                    m.remove(coin.getName());
+                }
                 this.account.setBalance(m);
 
                 List<Transaction> t = new ArrayList<>(this.account.getTransactions());
-                t.add(new Transaction(this.name, new Date(), crypto, CryptoMarket.resourceManager.getResource("Diamonds"), TransactionType.WITHDRAWAL, diamondsAsCrypto, amount));
+                t.add(new Transaction(this.name, new Date(), coin.getName(), CryptoMarket.resourceManager.getResource("Diamonds"), TransactionType.WITHDRAWAL, diamondsAsCrypto, amount, coinPrice));
                 this.account.setTransactions(t);
 
                 ItemStack diamonds = new ItemStack(Material.DIAMOND);
@@ -53,7 +65,7 @@ public class Player {
                 Update();
 
             } else {
-                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveThatManyCoins"), crypto));
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveThatManyCoins"), this.account.getBalance().get(crypto).getName()));
             }
         } catch (Exception e) {
             this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted") + " " + e.getMessage());
@@ -72,23 +84,30 @@ public class Player {
             if (this.player.getInventory().contains(Material.DIAMOND, amount)) {
                 double amountOfCrypto = amount * CryptoMarket.config.price / coin.getPriceUSD();
                 double at = amountOfCrypto;
-                if (this.account.getBalance().containsKey(crypto)) {
-                    amountOfCrypto += this.account.getBalance().get(crypto);
+                if (this.account.getBalance().containsKey(coin.getName())) {
+                    amountOfCrypto += this.account.getBalance().get(coin.getName()).getAmount();
                 }
 
-                Map<String, Double> hm = new HashMap<>(this.account.getBalance());
-                hm.put(crypto, amountOfCrypto);
+                Coin c;
+                Map<String, Coin> hm = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+                hm.putAll(this.account.getBalance());
+                if (hm.containsKey(coin.getName())) {
+                    c = this.account.getBalance().get(coin.getName());
+                    c.setAmount(amountOfCrypto);
+                } else {
+                    c = new Coin(coin.getName(), coin.getSymbol(), amountOfCrypto);
+                }
+                hm.put(coin.getName(), c);
                 this.account.setBalance(hm);
 
                 List<Transaction> t = new ArrayList<>(this.account.getTransactions());
-                t.add(new Transaction(this.name, new Date(), CryptoMarket.resourceManager.getResource("Diamonds"), crypto, TransactionType.DEPOSIT, at, amount));
+                t.add(new Transaction(this.name, new Date(), CryptoMarket.resourceManager.getResource("Diamonds"), coin.getName(), TransactionType.DEPOSIT, at, amount, coin.getPriceUSD()));
                 this.account.setTransactions(t);
 
                 this.player.getInventory().removeItem(diamonds);
                 checkBalance();
                 Update();
-            }
-            else {
+            } else {
                 this.player.sendMessage(CryptoMarket.resourceManager.getResource("DontHaveThatAmountOfDiamonds"));
             }
         } catch (Exception e) {
@@ -109,7 +128,7 @@ public class Player {
     }
 
     private void Initialize() {
-        File file = new File(Paths.get(CryptoMarket.pluginDir,"Players", String.format("%s.xml", this.name)).toString());
+        File file = new File(Paths.get(CryptoMarket.pluginDir, "Players", String.format("%s.xml", this.name)).toString());
         if (file.exists()) {
             try {
                 PlayerAccount acc = (PlayerAccount) XmlSerializationHelper.XmlDeserialize(this.name);

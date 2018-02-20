@@ -6,27 +6,28 @@ import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @XmlRootElement
 public class PlayerAccount {
     private String player;
-    private Map<String, Double> balance;
+    private Map<String, Coin> balance;
     private List<Transaction> transactions;
 
     public PlayerAccount() { }
 
-    public PlayerAccount(String playerName, Map<String, Double> balance, List<Transaction> transactions) {
+    public PlayerAccount(String playerName, Map<String, Coin> balance, List<Transaction> transactions) {
         this.player = playerName;
-        this.balance = balance;
+        this.balance = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        this.balance.putAll(balance);
         this.transactions = transactions;
     }
 
     public PlayerAccount(String playerName) {
         this.player = playerName;
-        this.balance = new HashMap<>();
+        this.balance = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         this.transactions = new ArrayList<>();
     }
 
@@ -37,9 +38,9 @@ public class PlayerAccount {
     public String printBalance() {
         StringBuilder sb = new StringBuilder();
         double b = 0.0;
-        for(Map.Entry<String, Double> m : this.balance.entrySet()) {
-            double usd = CoinMarketCap.ticker(m.getKey()).get().getPriceUSD() * m.getValue();
-            sb.append(String.format("%s - %.8f ($%.2f - %d %s)\n", m.getKey(), m.getValue(), usd, (int) Math.floor(usd / CryptoMarket.config.price), CryptoMarket.resourceManager.getResource("DiamondOrS")));
+        for(Map.Entry<String, Coin> m : this.balance.entrySet()) {
+            double usd = CoinMarketCap.ticker(m.getKey()).get().getPriceUSD() * m.getValue().getAmount();
+            sb.append(String.format("#%d. %s (%s) - %.8f ($%.2f - %d %s)\n", m.getValue().getRank(), m.getKey(), m.getValue().getSymbol(), m.getValue().getAmount(), usd, (int) Math.floor(usd / CryptoMarket.config.price), CryptoMarket.resourceManager.getResource("DiamondOrS")));
             b += usd;
         }
         sb.append("------------------------------");
@@ -55,12 +56,13 @@ public class PlayerAccount {
         this.player = player;
     }
 
-    public Map<String, Double> getBalance() {
+    public Map<String, Coin> getBalance() {
         return balance;
     }
 
-    public void setBalance(Map<String, Double> balance) {
-        this.balance = balance;
+    public void setBalance(Map<String, Coin> balance) {
+        this.balance = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        this.balance.putAll(balance);
     }
 
     public List<Transaction> getTransactions() {
@@ -74,8 +76,8 @@ public class PlayerAccount {
     public double getBalanceInUSD() {
         double b = 0.0;
         try {
-            for (Map.Entry<String, Double> entry : this.balance.entrySet()) {
-                b += CoinMarketCap.ticker(entry.getKey()).get().getPriceUSD() * entry.getValue();
+            for (Map.Entry<String, Coin> entry : this.balance.entrySet()) {
+                b += CoinMarketCap.ticker(entry.getKey()).get().getPriceUSD() * entry.getValue().getAmount();
             }
         } catch (Exception e) {
             Bukkit.getLogger().warning(e.getMessage());
