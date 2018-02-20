@@ -2,21 +2,25 @@ package pl.csrv.divinecraft.evirth.cryptomarket.commands;
 
 import org.bukkit.command.CommandSender;
 
+import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.player.*;
 
 public class CommandExecutor implements org.bukkit.command.CommandExecutor {
+    public Command[] AvailableCommands;
 
-    protected static Command[] AvailableCommands = new Command[] {
-            new Command("help", "Gets information about the CryptoMarket plugin."),
-            new Command("balance", "Shows current balance."),
-            new Command("withdraw", "Exchanges cryptocurrencies to Diamonds.", "/cm withdraw 10 Bitcoin"),
-            new Command("deposit", "Exchanges Diamonds to cryptocurrencies.", "/cm deposit 10 Bitcoin"),
-            new Command("transfer", "Transfers cryptocurrencies to another player's account.", "/cm transfer Bitcoin 1 Evirth"),
-            new Command("exchange", "Exchanges cryptocurrency to another one.", "/cm exchange Bitcoin 1 IOTA"),
-            new Command("price", "Shows the current price of cryptocurrency.", "/cm price IOTA"),
-            new Command("global", "Gets information about the market cap.", "/cm global")
-    };
+    public CommandExecutor() {
+        AvailableCommands = new Command[]{
+                new Command("help", CryptoMarket.resourceManager.getResource("HelpCommandDescription")),
+                new Command("balance", CryptoMarket.resourceManager.getResource("BalanceCommandDescription")),
+                new Command("withdraw", CryptoMarket.resourceManager.getResource("WithdrawCommandDescription"), "/cm withdraw 10 Bitcoin"),
+                new Command("deposit", CryptoMarket.resourceManager.getResource("DepositCommandDescription"), "/cm deposit 10 Bitcoin"),
+                new Command("transfer", CryptoMarket.resourceManager.getResource("TransferCommandDescription"), "/cm transfer Bitcoin 1 Evirth"),
+                new Command("exchange", CryptoMarket.resourceManager.getResource("ExchangeCommandDescription"), "/cm exchange Bitcoin 1 IOTA"),
+                new Command("price", CryptoMarket.resourceManager.getResource("PriceCommandDescription"), "'/cm price IOTA' or '/cm price' - top 10"),
+                new Command("global", CryptoMarket.resourceManager.getResource("GlobalCommandDescription"), "/cm global")
+        };
+    }
 
     @Override
     public boolean onCommand(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {

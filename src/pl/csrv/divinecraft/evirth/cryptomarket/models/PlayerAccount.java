@@ -1,13 +1,9 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.models;
 
 import com.lucadev.coinmarketcap.CoinMarketCap;
-import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.Bukkit;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
-import pl.csrv.divinecraft.evirth.cryptomarket.helpers.XmlSerializationHelper;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,11 +39,11 @@ public class PlayerAccount {
         double b = 0.0;
         for(Map.Entry<String, Double> m : this.balance.entrySet()) {
             double usd = CoinMarketCap.ticker(m.getKey()).get().getPriceUSD() * m.getValue();
-            sb.append(String.format("%s - %.8f ($%.2f - %d Diamonds)\n", m.getKey(), m.getValue(), usd, (int) Math.floor(usd / CryptoMarket.config.price)));
+            sb.append(String.format("%s - %.8f ($%.2f - %d %s)\n", m.getKey(), m.getValue(), usd, (int) Math.floor(usd / CryptoMarket.config.price), CryptoMarket.resourceManager.getResource("DiamondOrS")));
             b += usd;
         }
         sb.append("------------------------------");
-        sb.insert(0, String.format("Your balance corresponds to the equivalent of $%.2f (%d Diamond(s))\n", b, (int) Math.floor(b / CryptoMarket.config.price)));
+        sb.insert(0, String.format(CryptoMarket.resourceManager.getResource("YourBalance") + "\n", b, (int) Math.floor(b / CryptoMarket.config.price)));
         return sb.toString();
     }
 

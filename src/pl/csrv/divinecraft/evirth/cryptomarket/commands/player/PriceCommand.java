@@ -5,6 +5,7 @@ import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class PriceCommand extends CommandExecutor {
                 sb.append(String.format("#%s. %s (%s) - %.6f USD", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD()));
             }
         } catch (Exception e) {
-            sb.append("Could not get information about crypto :(. Please, try again later.");
+            sb.append(CryptoMarket.resourceManager.getResource("CouldNotGetInfoAboutCrypto"));
         }
         commandSender.sendMessage(sb.toString().split("\n"));
         return true;

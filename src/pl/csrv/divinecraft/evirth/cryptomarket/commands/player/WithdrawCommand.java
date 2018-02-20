@@ -3,6 +3,7 @@ package pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
+import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.Player;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
 
@@ -11,6 +12,7 @@ public class WithdrawCommand extends CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof HumanEntity) {
             if (strings.length != 3) {
+                commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
                 return false;
             }
 
@@ -20,7 +22,7 @@ public class WithdrawCommand extends CommandExecutor {
                 String crypto = strings[2];
                 p.withdraw(amount, crypto);
             } catch (NumberFormatException e) {
-                commandSender.sendMessage("Could not complete this transaction. Please, make sure the input command is correct.");
+                commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }
         } else {
             commandSender.sendMessage("[CryptoMarket] Only players can use this command.");

@@ -15,16 +15,16 @@ public class HelpCommand extends CommandExecutor {
         StringBuilder sb = new StringBuilder();
 
         if (strings.length < 2) {
-            String helpMsg = String.format("This is cryptocurrency market simulator based on real prices.\nOne Diamond is the equivalent of $%d.\n", CryptoMarket.config.price);
+            String helpMsg = String.format(CryptoMarket.resourceManager.getResource("HelpHeader") + "\n", CryptoMarket.config.price);
             sb.append(helpMsg);
             for (pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command c : AvailableCommands) {
-                sb.append(String.format("/%s - %s\n", c.name, c.description));
+                sb.append(String.format("/cm %s - %s\n", c.name, c.description));
             }
         }
         else {
             for (pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command c : AvailableCommands) {
                 if (strings[1].equals(c.name)) {
-                    sb.append(String.format("/cm %s - %s\nUsage: %s\n", c.name, c.description, c.usage));
+                    sb.append(String.format("/cm %s - %s\n%s: %s\n", c.name, c.description, CryptoMarket.resourceManager.getResource("Usage"),c.usage));
                     break;
                 }
             }

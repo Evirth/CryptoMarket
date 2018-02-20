@@ -3,6 +3,7 @@ package pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
+import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.Player;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
 
@@ -20,7 +21,7 @@ public class DepositCommand extends CommandExecutor {
                 String crypto = strings[2];
                 p.deposit(amount, crypto);
             } catch (NumberFormatException e) {
-                commandSender.sendMessage("Could not complete this transaction. Please, make sure the input command is correct.");
+                commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }
         } else {
             commandSender.sendMessage("[CryptoMarket] Only players can use this command.");

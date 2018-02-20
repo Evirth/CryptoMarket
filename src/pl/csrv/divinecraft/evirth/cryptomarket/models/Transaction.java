@@ -10,7 +10,6 @@ public class Transaction {
     private String toCurrency;
     private TransactionType type;
     private double amountOfCrypto;
-
     private int amountOfDiamonds;
 
     public Transaction() { }

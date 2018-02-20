@@ -11,8 +11,7 @@ import pl.csrv.divinecraft.evirth.cryptomarket.models.PlayerAccount;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.Transaction;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Player {
@@ -30,7 +29,7 @@ public class Player {
     public void withdraw(int amount, String crypto) {
         try {
             if (!this.account.getBalance().containsKey(crypto)) {
-                this.player.sendMessage(String.format("You don't have any %s coin.", crypto));
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveCoin"), crypto));
                 return;
             }
 
@@ -43,7 +42,7 @@ public class Player {
                 this.account.setBalance(m);
 
                 List<Transaction> t = new ArrayList<>(this.account.getTransactions());
-                t.add(new Transaction(this.name, new Date(), crypto, "Diamonds", TransactionType.WITHDRAWAL, diamondsAsCrypto, amount));
+                t.add(new Transaction(this.name, new Date(), crypto, CryptoMarket.resourceManager.getResource("Diamonds"), TransactionType.WITHDRAWAL, diamondsAsCrypto, amount));
                 this.account.setTransactions(t);
 
                 ItemStack diamonds = new ItemStack(Material.DIAMOND);
@@ -54,10 +53,10 @@ public class Player {
                 Update();
 
             } else {
-                this.player.sendMessage(String.format("You don't have that much %s coins.", crypto));
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveThatManyCoins"), crypto));
             }
         } catch (Exception e) {
-            this.player.sendMessage("The payment can not be completed at this time. " + e.getMessage());
+            this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted") + " " + e.getMessage());
         }
     }
 
@@ -65,7 +64,7 @@ public class Player {
         try {
             CoinMarket coin = CoinMarketCap.ticker(crypto).get();
             if (coin == null) {
-                this.player.sendMessage(String.format("Could not find coin: %s", crypto));
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("CouldNotFindCoin"), crypto));
                 return;
             }
             ItemStack diamonds = new ItemStack(Material.DIAMOND);
@@ -82,7 +81,7 @@ public class Player {
                 this.account.setBalance(hm);
 
                 List<Transaction> t = new ArrayList<>(this.account.getTransactions());
-                t.add(new Transaction(this.name, new Date(), "Diamonds", crypto, TransactionType.DEPOSIT, at, amount));
+                t.add(new Transaction(this.name, new Date(), CryptoMarket.resourceManager.getResource("Diamonds"), crypto, TransactionType.DEPOSIT, at, amount));
                 this.account.setTransactions(t);
 
                 this.player.getInventory().removeItem(diamonds);
@@ -90,10 +89,10 @@ public class Player {
                 Update();
             }
             else {
-                this.player.sendMessage("You don't have that amount of Diamonds.");
+                this.player.sendMessage(CryptoMarket.resourceManager.getResource("DontHaveThatAmountOfDiamonds"));
             }
         } catch (Exception e) {
-            this.player.sendMessage("The payment can not be completed at this time.");
+            this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted"));
         }
     }
 
@@ -110,7 +109,7 @@ public class Player {
     }
 
     private void Initialize() {
-        File file = new File(String.format("./plugins/CryptoMarket/Players/%s.xml", this.name));
+        File file = new File(Paths.get(CryptoMarket.pluginDir,"Players", String.format("%s.xml", this.name)).toString());
         if (file.exists()) {
             try {
                 PlayerAccount acc = (PlayerAccount) XmlSerializationHelper.XmlDeserialize(this.name);
