@@ -41,8 +41,9 @@ public class PlayerAccount {
         StringBuilder sb = new StringBuilder();
         double b = 0.0;
         for (Map.Entry<String, Coin> m : this.balance.entrySet()) {
-            double usd = CoinMarketCap.ticker(m.getKey()).get().getPriceUSD() * m.getValue().getAmount();
-            sb.append(String.format("#%d. %s (%s) - %.8f ($%.2f - %d %s)\n", m.getValue().getRank(), m.getKey(), m.getValue().getSymbol(), m.getValue().getAmount(), usd, (int) Math.floor(usd / CryptoMarket.config.price), CryptoMarket.resourceManager.getResource("DiamondOrS")));
+            CoinMarket coin = CoinMarketCap.ticker(m.getKey().replace(" ", "-")).get();
+            double usd = coin.getPriceUSD() * m.getValue().getAmount();
+            sb.append(String.format("#%d. %s (%s) - %.8f ($%.2f - %d %s)\n", coin.getRank(), coin.getName(), coin.getSymbol(), m.getValue().getAmount(), usd, (int) Math.floor(usd / CryptoMarket.config.price), CryptoMarket.resourceManager.getResource("DiamondOrS")));
             b += usd;
         }
         sb.append("------------------------------");
@@ -59,7 +60,7 @@ public class PlayerAccount {
     }
 
     public Map<String, Coin> getBalance() {
-        return balance;
+        return this.balance;
     }
 
     public void setBalance(Map<String, Coin> balance) {
@@ -76,7 +77,7 @@ public class PlayerAccount {
     }
 
     public List<Transaction> getTransactions() {
-        return transactions;
+        return this.transactions;
     }
 
     public void setTransactions(List<Transaction> transactions) {
@@ -107,19 +108,27 @@ public class PlayerAccount {
         throw new IllegalArgumentException("Crypto not found.");
     }
 
-    public static int calculateDiamondsAmountFromCoins(String crypto, double amount) throws IllegalArgumentException {
+    public static int calculateAmountOfDiamondsFromCoins(String crypto, double amountOfCrypto) throws IllegalArgumentException {
         CoinMarket coin = CoinMarketCap.ticker(crypto).get();
         if (coin != null) {
-            return (int) Math.floor(coin.getPriceUSD() * amount / CryptoMarket.config.price);
+            return (int) Math.floor(coin.getPriceUSD() * amountOfCrypto / CryptoMarket.config.price);
         }
         throw new IllegalArgumentException("Crypto not found.");
     }
 
-    public static double calculateCryptosAmountFromDiamonds(String crypto, int diamonds) throws IllegalArgumentException {
+    public static int calculateAmountOfDiamondsFromCoins(double cryptoPriceInUSD, double amountOfCrypto) {
+        return (int) Math.floor(cryptoPriceInUSD * amountOfCrypto / CryptoMarket.config.price);
+    }
+
+    public static double calculateAmountOfCryptoFromDiamonds(String crypto, int diamonds) throws IllegalArgumentException {
         CoinMarket coin = CoinMarketCap.ticker(crypto).get();
         if (coin != null) {
             return diamonds * CryptoMarket.config.price / coin.getPriceUSD();
         }
         throw new IllegalArgumentException("Crypto not found.");
+    }
+
+    public static double calculateAmountOfCryptoFromDiamonds(int diamonds, double cryptoPriceInUSD) {
+        return diamonds * CryptoMarket.config.price / cryptoPriceInUSD;
     }
 }

@@ -20,7 +20,7 @@ public class WithdrawCommand extends CommandExecutor {
                 Player p = new Player(commandSender.getName());
                 int amount = Integer.parseInt(strings[1]);
                 String crypto = strings[2];
-                p.withdraw(amount, crypto, null);
+                p.withdraw(amount, crypto);
             } catch (NumberFormatException e) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }

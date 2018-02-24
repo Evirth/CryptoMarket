@@ -12,6 +12,7 @@ public class DepositCommand extends CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof HumanEntity) {
             if (strings.length != 3) {
+                commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
                 return false;
             }
 
@@ -19,7 +20,7 @@ public class DepositCommand extends CommandExecutor {
                 Player p = new Player(commandSender.getName());
                 int amount = Integer.parseInt(strings[1]);
                 String crypto = strings[2];
-                p.deposit(amount, crypto, null);
+                p.deposit(amount, crypto);
             } catch (NumberFormatException e) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }

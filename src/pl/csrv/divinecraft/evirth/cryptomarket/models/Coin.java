@@ -16,7 +16,7 @@ public class Coin {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -24,7 +24,7 @@ public class Coin {
     }
 
     public String getSymbol() {
-        return symbol;
+        return this.symbol;
     }
 
     public void setSymbol(String symbol) {
@@ -32,7 +32,7 @@ public class Coin {
     }
 
     public double getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(double amount) {
@@ -40,6 +40,10 @@ public class Coin {
     }
 
     public int getRank() {
-        return CoinMarketCap.ticker(this.name).get().getRank();
+        return CoinMarketCap.ticker(this.getId()).get().getRank();
+    }
+
+    private String getId() {
+        return this.name.replace(" ", "-");
     }
 }
