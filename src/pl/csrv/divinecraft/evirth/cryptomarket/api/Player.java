@@ -68,6 +68,43 @@ public class Player {
         }
     }
 
+    public void withdrawAll() {
+        if (this.account.getBalance().isEmpty()) {
+            this.player.sendMessage(CryptoMarket.resourceManager.getResource("EmptyBalance"));
+            return;
+        }
+
+        int d = 0;
+        for (Map.Entry<String, Coin> m : this.account.getBalance().entrySet()) {
+            CoinMarket coin = CoinMarketCap.ticker(m.getValue().getId()).get();
+            int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), m.getValue().getAmount());
+            double amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(diamondsFromBalance, coin.getPriceUSD());
+            this.changeBalance(coin, -amountOfCrypto);
+            d += diamondsFromBalance;
+
+            Transaction t = new Transaction(
+                    this.name,
+                    new Date(),
+                    coin.getName(),
+                    CryptoMarket.resourceManager.getResource("Diamonds"),
+                    TransactionType.WITHDRAWAL,
+                    amountOfCrypto,
+                    diamondsFromBalance,
+                    coin.getPriceUSD(),
+                    null,
+                    null);
+            this.account.getTransactions().add(t);
+        }
+
+        ItemStack diamonds = new ItemStack(Material.DIAMOND);
+        diamonds.setAmount(d);
+        this.player.getInventory().addItem(diamonds);
+        this.checkBalance();
+        this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("WithdrawAll"), d));
+
+        this.update();
+    }
+
     public void deposit(int amountOfDiamonds, String crypto) {
         try {
             CoinMarket coin = CoinMarketCap.ticker(crypto).get();
@@ -181,6 +218,7 @@ public class Player {
     }
 
     public void checkBalance() {
+        this.player.sendMessage(CryptoMarket.resourceManager.getResource("CalculatingThePrices"));
         this.player.sendMessage(this.account.printBalance().split("\n"));
     }
 

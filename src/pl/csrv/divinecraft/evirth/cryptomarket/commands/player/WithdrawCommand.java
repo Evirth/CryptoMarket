@@ -10,17 +10,23 @@ public class WithdrawCommand implements ICommand {
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
         if (commandSender instanceof HumanEntity) {
-            if (strings.length != 3) {
-                commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
-                return false;
-            }
-
             try {
+                if (strings.length == 2 && strings[1].equals("all")) {
+                    Player p = new Player(commandSender.getName());
+                    p.withdrawAll();
+                    return true;
+                }
+
+                if (strings.length != 3) {
+                    commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
+                    return false;
+                }
+
                 Player p = new Player(commandSender.getName());
                 int amount = Integer.parseInt(strings[1]);
                 String crypto = strings[2];
                 p.withdraw(amount, crypto);
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }
         } else {

@@ -43,7 +43,7 @@ public class Coin {
         return CoinMarketCap.ticker(this.getId()).get().getRank();
     }
 
-    private String getId() {
+    public String getId() {
         return this.name.replace(" ", "-");
     }
 }

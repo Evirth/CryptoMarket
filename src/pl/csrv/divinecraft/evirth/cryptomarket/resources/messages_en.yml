@@ -1,4 +1,5 @@
 # Usage
+CalculatingThePrices: "Calculation of coin prices..."
 CouldNotCompleteThisTransaction: "Could not complete this transaction. Please, make sure the input command is correct."
 CouldNotFindCoin: "Could not find coin: %s"
 CouldNotGetInfoAboutCrypto: "Could not get information about crypto. Please, try again later."
@@ -7,12 +8,14 @@ DontHaveThatAmountOfDiamonds: "You don't have that amount of Diamonds."
 DontHaveThatManyCoins: "You don't have that many %s coins."
 Diamonds: "Diamonds"
 DiamondOrS: "Diamond(s)"
+EmptyBalance: "No funds on Your account."
 GotTransfer: "%s has just sent You %.8f (%d Diamond(s)) of %s coins!"
 HelpHeader: "This is cryptocurrency market simulator based on real prices.\nOne Diamond is the equivalent of $%d."
 IncorrectUseOfCommand: "Incorrect use of the command. Type '/cm help %s' to know the proper usage."
 PaymentCannotBeCompleted: "The payment can not be completed at this time."
 PlayerNotFound: "Could not find the Player '%s'."
 Usage: "Usage"
+WithdrawAll: "You have withdrawn %d Diamond(s)."
 YourBalance: "Your balance corresponds to the equivalent of $%.2f (%d Diamond(s))"
 
 # Commands description

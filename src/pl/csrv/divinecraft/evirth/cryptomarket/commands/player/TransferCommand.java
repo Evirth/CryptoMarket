@@ -19,7 +19,7 @@ public class TransferCommand implements ICommand {
                 Player p = new Player(commandSender.getName());
                 String inputAmount = strings[2].replace(",", ".");
                 p.transfer(strings[1], inputAmount, strings[3]);
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }
         } else {

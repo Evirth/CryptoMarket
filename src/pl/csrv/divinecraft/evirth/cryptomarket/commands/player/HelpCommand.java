@@ -4,6 +4,7 @@ import org.bukkit.command.CommandSender;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutorImpl;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
 
 public class HelpCommand implements ICommand {
     @Override
@@ -16,12 +17,12 @@ public class HelpCommand implements ICommand {
         if (strings.length < 2) {
             String helpMsg = String.format(CryptoMarket.resourceManager.getResource("HelpHeader") + "\n", CryptoMarket.config.price);
             sb.append(helpMsg);
-            for (pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command c : CommandExecutorImpl.availableCommands) {
+            for (Command c : CommandExecutorImpl.availableCommands) {
                 sb.append(String.format("/cm %s - %s\n", c.name, c.description));
             }
         }
         else {
-            for (pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command c : CommandExecutorImpl.availableCommands) {
+            for (Command c : CommandExecutorImpl.availableCommands) {
                 if (strings[1].equals(c.name)) {
                     sb.append(String.format("/cm %s - %s\n%s: %s\n", c.name, c.description, CryptoMarket.resourceManager.getResource("Usage"),c.usage));
                     break;
