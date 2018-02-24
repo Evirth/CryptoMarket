@@ -1,15 +1,14 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
-import pl.csrv.divinecraft.evirth.cryptomarket.Player;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
+import pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 
-public class DepositCommand extends CommandExecutor {
+public class DepositCommand implements ICommand {
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean execute(CommandSender commandSender, String[] strings) {
         if (commandSender instanceof HumanEntity) {
             if (strings.length != 3) {
                 commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));

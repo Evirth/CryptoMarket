@@ -17,8 +17,7 @@ public class PlayerAccount {
     private Map<String, Coin> balance;
     private List<Transaction> transactions;
 
-    public PlayerAccount() {
-    }
+    public PlayerAccount() { }
 
     public PlayerAccount(String playerName, Map<String, Coin> balance, List<Transaction> transactions) {
         this.player = playerName;
@@ -68,24 +67,12 @@ public class PlayerAccount {
         this.balance.putAll(balance);
     }
 
-    public void putBalance(Coin coin) {
-        this.balance.put(coin.getName(), coin);
-    }
-
-    public void removeBalance(String crypto) {
-        this.balance.remove(crypto);
-    }
-
     public List<Transaction> getTransactions() {
         return this.transactions;
     }
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
-    }
-
-    public void addTransaction(Transaction transaction) {
-        this.transactions.add(transaction);
     }
 
     public double getBalanceInUSD() {
@@ -98,37 +85,5 @@ public class PlayerAccount {
             Bukkit.getLogger().warning(e.getMessage());
         }
         return b;
-    }
-
-    public static double calculateUSDPriceOfCoins(String crypto, double amount) throws IllegalArgumentException {
-        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
-        if (coin != null) {
-            return coin.getPriceUSD() * amount;
-        }
-        throw new IllegalArgumentException("Crypto not found.");
-    }
-
-    public static int calculateAmountOfDiamondsFromCoins(String crypto, double amountOfCrypto) throws IllegalArgumentException {
-        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
-        if (coin != null) {
-            return (int) Math.floor(coin.getPriceUSD() * amountOfCrypto / CryptoMarket.config.price);
-        }
-        throw new IllegalArgumentException("Crypto not found.");
-    }
-
-    public static int calculateAmountOfDiamondsFromCoins(double cryptoPriceInUSD, double amountOfCrypto) {
-        return (int) Math.floor(cryptoPriceInUSD * amountOfCrypto / CryptoMarket.config.price);
-    }
-
-    public static double calculateAmountOfCryptoFromDiamonds(String crypto, int diamonds) throws IllegalArgumentException {
-        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
-        if (coin != null) {
-            return diamonds * CryptoMarket.config.price / coin.getPriceUSD();
-        }
-        throw new IllegalArgumentException("Crypto not found.");
-    }
-
-    public static double calculateAmountOfCryptoFromDiamonds(int diamonds, double cryptoPriceInUSD) {
-        return diamonds * CryptoMarket.config.price / cryptoPriceInUSD;
     }
 }

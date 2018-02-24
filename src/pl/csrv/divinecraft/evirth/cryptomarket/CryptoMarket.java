@@ -1,9 +1,8 @@
 package pl.csrv.divinecraft.evirth.cryptomarket;
 
-import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutorImpl;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.Config;
 import pl.csrv.divinecraft.evirth.cryptomarket.resources.ResourceManager;
 
@@ -21,8 +20,7 @@ public class CryptoMarket extends JavaPlugin {
         this.createFolders();
         this.initializeConfig();
         resourceManager = new ResourceManager(this);
-        PluginCommand pc = this.getCommand("cryptomarket");
-        pc.setExecutor(new CommandExecutor());
+        this.getCommand("cryptomarket").setExecutor(new CommandExecutorImpl());
         this.getLogger().info("CryptoMarket enabled.");
     }
 

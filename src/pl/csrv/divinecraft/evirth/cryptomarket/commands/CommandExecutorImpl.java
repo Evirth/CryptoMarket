@@ -1,16 +1,15 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.commands;
 
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.player.*;
 
-public class CommandExecutor implements org.bukkit.command.CommandExecutor {
-    public Command[] AvailableCommands;
+public class CommandExecutorImpl implements CommandExecutor {
+    public static Command[] availableCommands;
 
-    public CommandExecutor() {
-        AvailableCommands = new Command[]{
+    public CommandExecutorImpl() {
+        availableCommands = new Command[]{
                 new Command("help", CryptoMarket.resourceManager.getResource("HelpCommandDescription")),
                 new Command("balance", CryptoMarket.resourceManager.getResource("BalanceCommandDescription")),
                 new Command("withdraw", CryptoMarket.resourceManager.getResource("WithdrawCommandDescription"), "/cm withdraw 10 Bitcoin"),
@@ -30,32 +29,7 @@ public class CommandExecutor implements org.bukkit.command.CommandExecutor {
             cmd = strings[0];
         }
 
-        switch (cmd) {
-            case "help":
-                new HelpCommand().onCommand(commandSender, command, s, strings);
-                break;
-            case "balance":
-                new BalanceCommand().onCommand(commandSender, command, s, strings);
-                break;
-            case "withdraw":
-                new WithdrawCommand().onCommand(commandSender, command, s, strings);
-                break;
-            case "deposit":
-                new DepositCommand().onCommand(commandSender, command, s, strings);
-                break;
-            case "transfer":
-                new TransferCommand().onCommand(commandSender, command, s, strings);
-                break;
-            case "exchange":
-                new ExchangeCommand().onCommand(commandSender, command, s, strings);
-                break;
-            case "price":
-                new PriceCommand().onCommand(commandSender, command, s, strings);
-                break;
-            case "global":
-                new GlobalCommand().onCommand(commandSender, command, s, strings);
-                break;
-        }
-        return true;
+        ICommand c = CommandFactory.create(cmd);
+        return c.execute(commandSender, strings);
     }
 }

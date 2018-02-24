@@ -1,14 +1,12 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 
-public class GlobalCommand extends CommandExecutor {
+public class GlobalCommand implements ICommand {
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean execute(CommandSender commandSender, String[] strings) {
         StringBuilder sb = new StringBuilder();
         try {
             sb.append("TODO: Market cap etc.");

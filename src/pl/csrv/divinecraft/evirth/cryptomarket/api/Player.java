@@ -1,11 +1,13 @@
-package pl.csrv.divinecraft.evirth.cryptomarket;
+package pl.csrv.divinecraft.evirth.cryptomarket.api;
 
 import com.lucadev.coinmarketcap.CoinMarketCap;
 import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
+import pl.csrv.divinecraft.evirth.cryptomarket.helpers.CoinHelper;
 import pl.csrv.divinecraft.evirth.cryptomarket.helpers.XmlSerializationHelper;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.Coin;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.PlayerAccount;
@@ -35,9 +37,9 @@ public class Player {
             }
 
             CoinMarket coin = CoinMarketCap.ticker(crypto).get();
-            int diamondsFromBalance = PlayerAccount.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), this.account.getBalance().get(crypto).getAmount());
+            int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), this.account.getBalance().get(crypto).getAmount());
             if (diamondsFromBalance >= amount) {
-                double amountOfCrypto = PlayerAccount.calculateAmountOfCryptoFromDiamonds(amount, coin.getPriceUSD());
+                double amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(amount, coin.getPriceUSD());
                 this.changeBalance(coin, -amountOfCrypto);
                 ItemStack diamonds = new ItemStack(Material.DIAMOND);
                 diamonds.setAmount(amount);
@@ -55,7 +57,7 @@ public class Player {
                         coin.getPriceUSD(),
                         null,
                         null);
-                this.account.addTransaction(t);
+                this.account.getTransactions().add(t);
 
                 this.update();
             } else {
@@ -94,7 +96,7 @@ public class Player {
                         coin.getPriceUSD(),
                         null,
                         null);
-                this.account.addTransaction(t);
+                this.account.getTransactions().add(t);
 
                 this.update();
             } else {
@@ -138,10 +140,10 @@ public class Player {
 
             if (amount.endsWith("D") || amount.endsWith("d")) {
                 amountOfDiamonds = Math.abs(Integer.parseInt(amount.substring(0, amount.length() - 1))); // Remove 'D' or 'd' char and parse to int
-                amountOfCrypto = PlayerAccount.calculateAmountOfCryptoFromDiamonds(amountOfDiamonds, coin.getPriceUSD());
+                amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(amountOfDiamonds, coin.getPriceUSD());
             } else {
                 amountOfCrypto = Double.parseDouble(amount);
-                amountOfDiamonds = PlayerAccount.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfCrypto);
+                amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfCrypto);
             }
 
             double balance = this.account.getBalance().get(coin.getName()).getAmount();
@@ -168,8 +170,8 @@ public class Player {
                     this.name,
                     p2.name
             );
-            this.account.addTransaction(t);
-            p2.account.addTransaction(t);
+            this.account.getTransactions().add(t);
+            p2.account.getTransactions().add(t);
 
             this.update();
             p2.update();
@@ -196,10 +198,10 @@ public class Player {
 
             if (resultBalance > 0) {
                 Coin c = new Coin(coin.getName(), coin.getSymbol(), resultBalance);
-                this.account.putBalance(c);
+                this.account.getBalance().put(c.getName(), c);
             } else {
                 if (containsCoin) {
-                    this.account.removeBalance(coin.getName());
+                    this.account.getBalance().remove(coin.getName());
                 }
             }
         } catch (Exception e) {

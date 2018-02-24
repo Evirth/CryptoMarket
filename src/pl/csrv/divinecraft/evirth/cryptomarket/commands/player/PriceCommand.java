@@ -2,17 +2,15 @@ package pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
 import com.lucadev.coinmarketcap.CoinMarketCap;
 import com.lucadev.coinmarketcap.model.CoinMarket;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 
 import java.util.List;
 
-public class PriceCommand extends CommandExecutor {
+public class PriceCommand implements ICommand {
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean execute(CommandSender commandSender, String[] strings) {
         StringBuilder sb = new StringBuilder();
         try {
             if (strings.length < 2) {

@@ -1,12 +1,11 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutor;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 
-public class StatsCommand extends CommandExecutor {
+public class StatsCommand implements ICommand {
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean execute(CommandSender commandSender, String[] strings) {
         return true;
     }
 }
