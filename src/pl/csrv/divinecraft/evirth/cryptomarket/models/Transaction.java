@@ -5,7 +5,7 @@ import pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
 import java.util.Date;
 
 public class Transaction {
-    private String playerName;
+    private String executorName;
     private String toPlayer;
     private String fromPlayer;
     private Date transactionDate;
@@ -13,13 +13,15 @@ public class Transaction {
     private String toCurrency;
     private TransactionType type;
     private double amountOfCrypto;
+    private Double amountOfNewCrypto;
     private int amountOfDiamonds;
     private double cryptoPriceInUSD;
+    private Double newCryptoPriceInUSD;
 
     public Transaction() { }
 
-    public Transaction(String playerName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds, double cryptoPriceInUSD, String fromPlayer, String toPlayer) {
-        this.playerName = playerName;
+    public Transaction(String executorName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds, double cryptoPriceInUSD, String fromPlayer, String toPlayer, Double amountOfNewCrypto, Double newCryptoPriceInUSD) {
+        this.executorName = executorName;
         this.fromPlayer = fromPlayer;
         this.toPlayer = toPlayer;
         this.transactionDate = transactionDate;
@@ -27,20 +29,22 @@ public class Transaction {
         this.toCurrency = toCurrency;
         this.type = type;
         this.amountOfCrypto = amountOfCrypto;
+        this.amountOfNewCrypto = amountOfNewCrypto;
         this.amountOfDiamonds = amountOfDiamonds;
         this.cryptoPriceInUSD = cryptoPriceInUSD;
+        this.newCryptoPriceInUSD = newCryptoPriceInUSD;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public String getExecutorName() {
+        return this.executorName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    public void setExecutorName(String executorName) {
+        this.executorName = executorName;
     }
 
     public String getToPlayer() {
-        return toPlayer;
+        return this.toPlayer;
     }
 
     public void setToPlayer(String toPlayer) {
@@ -48,7 +52,7 @@ public class Transaction {
     }
 
     public String getFromPlayer() {
-        return fromPlayer;
+        return this.fromPlayer;
     }
 
     public void setFromPlayer(String fromPlayer) {
@@ -56,7 +60,7 @@ public class Transaction {
     }
 
     public Date getTransactionDate() {
-        return transactionDate;
+        return this.transactionDate;
     }
 
     public void setTransactionDate(Date transactionDate) {
@@ -64,7 +68,7 @@ public class Transaction {
     }
 
     public String getFromCurrency() {
-        return fromCurrency;
+        return this.fromCurrency;
     }
 
     public void setFromCurrency(String fromCurrency) {
@@ -72,7 +76,7 @@ public class Transaction {
     }
 
     public String getToCurrency() {
-        return toCurrency;
+        return this.toCurrency;
     }
 
     public void setToCurrency(String toCurrency) {
@@ -80,7 +84,7 @@ public class Transaction {
     }
 
     public TransactionType getType() {
-        return type;
+        return this.type;
     }
 
     public void setType(TransactionType type) {
@@ -88,7 +92,7 @@ public class Transaction {
     }
 
     public double getAmountOfCrypto() {
-        return amountOfCrypto;
+        return this.amountOfCrypto;
     }
 
     public void setAmountOfCrypto(double amount) {
@@ -96,7 +100,7 @@ public class Transaction {
     }
 
     public int getAmountOfDiamonds() {
-        return amountOfDiamonds;
+        return this.amountOfDiamonds;
     }
 
     public void setAmountOfDiamonds(int amountOfDiamonds) {
@@ -104,10 +108,26 @@ public class Transaction {
     }
 
     public double getCryptoPriceInUSD() {
-        return cryptoPriceInUSD;
+        return this.cryptoPriceInUSD;
     }
 
     public void setCryptoPriceInUSD(double cryptoPriceInUSD) {
         this.cryptoPriceInUSD = cryptoPriceInUSD;
+    }
+
+    public Double getAmountOfNewCrypto() {
+        return this.amountOfNewCrypto;
+    }
+
+    public void setAmountOfNewCrypto(Double amountOfNewCrypto) {
+        this.amountOfNewCrypto = amountOfNewCrypto;
+    }
+
+    public Double getNewCryptoPriceInUSD() {
+        return this.newCryptoPriceInUSD;
+    }
+
+    public void setNewCryptoPriceInUSD(Double newCryptoPriceInUSD) {
+        this.newCryptoPriceInUSD = newCryptoPriceInUSD;
     }
 }

@@ -12,6 +12,7 @@ import pl.csrv.divinecraft.evirth.cryptomarket.helpers.XmlSerializationHelper;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.Coin;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.PlayerAccount;
 import pl.csrv.divinecraft.evirth.cryptomarket.models.Transaction;
+import sun.security.krb5.internal.CredentialsUtil;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -56,6 +57,8 @@ public class Player {
                         amount,
                         coin.getPriceUSD(),
                         null,
+                        null,
+                        null,
                         null);
                 this.account.getTransactions().add(t);
 
@@ -92,6 +95,8 @@ public class Player {
                     diamondsFromBalance,
                     coin.getPriceUSD(),
                     null,
+                    null,
+                    null,
                     null);
             this.account.getTransactions().add(t);
         }
@@ -113,39 +118,85 @@ public class Player {
                 return;
             }
 
+            if (!this.player.getInventory().contains(Material.DIAMOND, amountOfDiamonds)) {
+                this.player.sendMessage(CryptoMarket.resourceManager.getResource("DontHaveThatAmountOfDiamonds"));
+                return;
+            }
+
+            double amountOfCrypto = amountOfDiamonds * CryptoMarket.config.price / coin.getPriceUSD();
+            this.changeBalance(coin, amountOfCrypto);
             ItemStack diamonds = new ItemStack(Material.DIAMOND);
             diamonds.setAmount(amountOfDiamonds);
+            this.player.getInventory().removeItem(diamonds);
+            this.checkBalance();
 
-            if (this.player.getInventory().contains(Material.DIAMOND, amountOfDiamonds)) {
-                double amountOfCrypto = amountOfDiamonds * CryptoMarket.config.price / coin.getPriceUSD();
-                this.changeBalance(coin, amountOfCrypto);
-                this.player.getInventory().removeItem(diamonds);
-                this.checkBalance();
+            Transaction t = new Transaction(
+                    this.name,
+                    new Date(),
+                    CryptoMarket.resourceManager.getResource("Diamonds"),
+                    coin.getName(),
+                    TransactionType.DEPOSIT,
+                    amountOfCrypto,
+                    amountOfDiamonds,
+                    coin.getPriceUSD(),
+                    null,
+                    null,
+                    null,
+                    null);
+            this.account.getTransactions().add(t);
 
-                Transaction t = new Transaction(
-                        this.name,
-                        new Date(),
-                        CryptoMarket.resourceManager.getResource("Diamonds"),
-                        coin.getName(),
-                        TransactionType.DEPOSIT,
-                        amountOfCrypto,
-                        amountOfDiamonds,
-                        coin.getPriceUSD(),
-                        null,
-                        null);
-                this.account.getTransactions().add(t);
-
-                this.update();
-            } else {
-                this.player.sendMessage(CryptoMarket.resourceManager.getResource("DontHaveThatAmountOfDiamonds"));
-            }
+            this.update();
         } catch (Exception e) {
             this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted"));
         }
     }
 
     public void exchange(String fromCrypto, double amount, String toCrypto) {
+        try {
+            if (!this.account.getBalance().containsKey(fromCrypto)) {
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveCoin"), fromCrypto));
+                return;
+            }
 
+            Coin fromC = this.account.getBalance().get(fromCrypto);
+            if (fromC.getAmount() < amount) {
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveThatManyCoins"), fromC.getName()));
+                return;
+            }
+
+            CoinMarket toCoin = CoinMarketCap.ticker(toCrypto).get();
+            if (toCoin == null) {
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("CouldNotFindCoin"), toCrypto));
+                return;
+            }
+
+            CoinMarket fromCoin = CoinMarketCap.ticker(fromC.getId()).get();
+            int amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(fromCoin.getPriceUSD(), amount);
+            this.changeBalance(fromCoin, -amount);
+            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount, toCoin.getPriceUSD());
+            this.changeBalance(toCoin, amountOfNewCoin);
+            this.checkBalance();
+            this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("Exchange"), amount, fromCoin.getSymbol(), fromCoin.getPriceUSD() * amount, amountOfDiamonds, amountOfNewCoin, toCoin.getSymbol()));
+
+            Transaction t = new Transaction(
+                    this.name,
+                    new Date(),
+                    fromCoin.getName(),
+                    toCoin.getName(),
+                    TransactionType.EXCHANGE,
+                    amount,
+                    amountOfDiamonds,
+                    fromCoin.getPriceUSD(),
+                    null,
+                    null,
+                    amountOfNewCoin,
+                    toCoin.getPriceUSD());
+            this.account.getTransactions().add(t);
+
+            this.update();
+        } catch (Exception e) {
+            this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted"));
+        }
     }
 
     public void transfer(String crypto, String amount, String toPlayer) {
@@ -205,8 +256,9 @@ public class Player {
                     amountOfDiamonds,
                     coin.getPriceUSD(),
                     this.name,
-                    p2.name
-            );
+                    p2.name,
+                    null,
+                    null);
             this.account.getTransactions().add(t);
             p2.account.getTransactions().add(t);
 
