@@ -10,6 +10,7 @@ DiamondOrS: "Diamond(s)"
 HelpHeader: "This is cryptocurrency market simulator based on real prices.\nOne Diamond is the equivalent of $%d."
 IncorrectUseOfCommand: "Incorrect use of the command. Type '/cm help %s' to know the proper usage."
 PaymentCannotBeCompleted: "The payment can not be completed at this time."
+PlayerNotFound: "Could not find the Player '%s'."
 Usage: "Usage"
 YourBalance: "Your balance corresponds to the equivalent of $%.2f (%d Diamond(s))"
 
@@ -22,3 +23,4 @@ TransferCommandDescription: "Transfers cryptocurrencies to another player's acco
 ExchangeCommandDescription: "Exchanges cryptocurrency to another one."
 PriceCommandDescription: "Shows the current price of cryptocurrency."
 GlobalCommandDescription: "Gets information about the market cap."
+StatsCommandDescription: "Shows the statistics."

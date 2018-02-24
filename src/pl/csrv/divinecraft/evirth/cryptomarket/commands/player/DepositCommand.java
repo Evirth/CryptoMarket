@@ -19,7 +19,7 @@ public class DepositCommand extends CommandExecutor {
                 Player p = new Player(commandSender.getName());
                 int amount = Integer.parseInt(strings[1]);
                 String crypto = strings[2];
-                p.deposit(amount, crypto);
+                p.deposit(amount, crypto, null);
             } catch (NumberFormatException e) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }

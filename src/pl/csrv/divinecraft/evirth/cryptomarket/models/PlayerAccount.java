@@ -1,6 +1,7 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.models;
 
 import com.lucadev.coinmarketcap.CoinMarketCap;
+import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.Bukkit;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 
@@ -16,7 +17,8 @@ public class PlayerAccount {
     private Map<String, Coin> balance;
     private List<Transaction> transactions;
 
-    public PlayerAccount() { }
+    public PlayerAccount() {
+    }
 
     public PlayerAccount(String playerName, Map<String, Coin> balance, List<Transaction> transactions) {
         this.player = playerName;
@@ -38,7 +40,7 @@ public class PlayerAccount {
     public String printBalance() {
         StringBuilder sb = new StringBuilder();
         double b = 0.0;
-        for(Map.Entry<String, Coin> m : this.balance.entrySet()) {
+        for (Map.Entry<String, Coin> m : this.balance.entrySet()) {
             double usd = CoinMarketCap.ticker(m.getKey()).get().getPriceUSD() * m.getValue().getAmount();
             sb.append(String.format("#%d. %s (%s) - %.8f ($%.2f - %d %s)\n", m.getValue().getRank(), m.getKey(), m.getValue().getSymbol(), m.getValue().getAmount(), usd, (int) Math.floor(usd / CryptoMarket.config.price), CryptoMarket.resourceManager.getResource("DiamondOrS")));
             b += usd;
@@ -65,12 +67,24 @@ public class PlayerAccount {
         this.balance.putAll(balance);
     }
 
+    public void putBalance(Coin coin) {
+        this.balance.put(coin.getName(), coin);
+    }
+
+    public void removeBalance(String crypto) {
+        this.balance.remove(crypto);
+    }
+
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
     }
 
     public double getBalanceInUSD() {
@@ -85,11 +99,27 @@ public class PlayerAccount {
         return b;
     }
 
-    public static double calculateUSDPriceOfCoins(String crypto, double amount) {
-        return CoinMarketCap.ticker(crypto).get().getPriceUSD() * amount;
+    public static double calculateUSDPriceOfCoins(String crypto, double amount) throws IllegalArgumentException {
+        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
+        if (coin != null) {
+            return coin.getPriceUSD() * amount;
+        }
+        throw new IllegalArgumentException("Crypto not found.");
     }
 
-    public static int calculateDiamondPriceOfCoins(String crypto, double amount) {
-        return (int) Math.floor(CoinMarketCap.ticker(crypto).get().getPriceUSD() * amount / CryptoMarket.config.price);
+    public static int calculateDiamondsAmountFromCoins(String crypto, double amount) throws IllegalArgumentException {
+        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
+        if (coin != null) {
+            return (int) Math.floor(coin.getPriceUSD() * amount / CryptoMarket.config.price);
+        }
+        throw new IllegalArgumentException("Crypto not found.");
+    }
+
+    public static double calculateCryptosAmountFromDiamonds(String crypto, int diamonds) throws IllegalArgumentException {
+        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
+        if (coin != null) {
+            return diamonds * CryptoMarket.config.price / coin.getPriceUSD();
+        }
+        throw new IllegalArgumentException("Crypto not found.");
     }
 }

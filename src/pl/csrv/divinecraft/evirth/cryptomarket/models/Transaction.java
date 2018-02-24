@@ -6,6 +6,8 @@ import java.util.Date;
 
 public class Transaction {
     private String playerName;
+    private String toPlayer;
+    private String fromPlayer;
     private Date transactionDate;
     private String fromCurrency;
     private String toCurrency;
@@ -16,8 +18,10 @@ public class Transaction {
 
     public Transaction() { }
 
-    public Transaction(String playerName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds, double cryptoPriceInUSD) {
+    public Transaction(String playerName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds, double cryptoPriceInUSD, String fromPlayer, String toPlayer) {
         this.playerName = playerName;
+        this.fromPlayer = fromPlayer;
+        this.toPlayer = toPlayer;
         this.transactionDate = transactionDate;
         this.fromCurrency = fromCurrency;
         this.toCurrency = toCurrency;
@@ -33,6 +37,22 @@ public class Transaction {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public String getToPlayer() {
+        return toPlayer;
+    }
+
+    public void setToPlayer(String toPlayer) {
+        this.toPlayer = toPlayer;
+    }
+
+    public String getFromPlayer() {
+        return fromPlayer;
+    }
+
+    public void setFromPlayer(String fromPlayer) {
+        this.fromPlayer = fromPlayer;
     }
 
     public Date getTransactionDate() {

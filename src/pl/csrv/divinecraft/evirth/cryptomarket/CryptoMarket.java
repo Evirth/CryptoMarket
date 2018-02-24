@@ -18,17 +18,17 @@ public class CryptoMarket extends JavaPlugin {
     @Override
     public void onEnable() {
         pluginDir = Paths.get("plugins", CryptoMarket.class.getSimpleName()).toString();
-        createFolders();
-        initializeConfig();
+        this.createFolders();
+        this.initializeConfig();
         resourceManager = new ResourceManager(this);
         PluginCommand pc = this.getCommand("cryptomarket");
         pc.setExecutor(new CommandExecutor());
-        getLogger().info("CryptoMarket enabled.");
+        this.getLogger().info("CryptoMarket enabled.");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("CryptoMarket disabled.");
+        this.getLogger().info("CryptoMarket disabled.");
     }
 
     private void initializeConfig() {
@@ -46,12 +46,12 @@ public class CryptoMarket extends JavaPlugin {
     private void createFolders() {
         File data = new File(Paths.get(pluginDir, "Players").toString());
         if (!data.exists()) {
-            data.mkdir();
+            data.mkdirs();
         }
 
         File resources = new File(Paths.get(pluginDir, "Resources").toString());
         if (!resources.exists()) {
-            resources.mkdir();
+            resources.mkdirs();
         }
     }
 }

@@ -36,7 +36,7 @@ public class ResourceManager {
             for (String s : lang) {
                 String file = String.format("messages_%s.yml", s);
                 if (!new File(Paths.get(this.resourcePath, file).toString()).exists())
-                    exportResource(file);
+                    this.exportResource(file);
             }
         } catch (Exception e) {
             this.plugin.getLogger().warning("Cannot generate default resource messages.");
@@ -93,8 +93,6 @@ public class ResourceManager {
             while ((readBytes = stream.read(buffer)) > 0) {
                 resStreamOut.write(buffer, 0, readBytes);
             }
-        } catch (Exception ex) {
-            throw ex;
         } finally {
             stream.close();
             resStreamOut.close();

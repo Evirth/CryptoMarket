@@ -15,10 +15,11 @@ public class CommandExecutor implements org.bukkit.command.CommandExecutor {
                 new Command("balance", CryptoMarket.resourceManager.getResource("BalanceCommandDescription")),
                 new Command("withdraw", CryptoMarket.resourceManager.getResource("WithdrawCommandDescription"), "/cm withdraw 10 Bitcoin"),
                 new Command("deposit", CryptoMarket.resourceManager.getResource("DepositCommandDescription"), "/cm deposit 10 Bitcoin"),
-                new Command("transfer", CryptoMarket.resourceManager.getResource("TransferCommandDescription"), "/cm transfer Bitcoin 1 Evirth"),
-                new Command("exchange", CryptoMarket.resourceManager.getResource("ExchangeCommandDescription"), "/cm exchange Bitcoin 1 IOTA"),
+                new Command("transfer", CryptoMarket.resourceManager.getResource("TransferCommandDescription"), "'/cm transfer Bitcoin 0.01 Evirth' or '/cm transfer Bitcoin 1D Evirth'"),
+                new Command("exchange", CryptoMarket.resourceManager.getResource("ExchangeCommandDescription"), "'/cm exchange Bitcoin 1 IOTA' or '/cm exchange Bitcoin 1D IOTA'"),
                 new Command("price", CryptoMarket.resourceManager.getResource("PriceCommandDescription"), "'/cm price IOTA' or '/cm price' - top 10"),
-                new Command("global", CryptoMarket.resourceManager.getResource("GlobalCommandDescription"), "/cm global")
+                new Command("global", CryptoMarket.resourceManager.getResource("GlobalCommandDescription"), "/cm global"),
+                new Command("stats", CryptoMarket.resourceManager.getResource("StatsCommandDescription"), "/cm stats")
         };
     }
 
