@@ -11,7 +11,7 @@ public class HelpCommand implements ICommand {
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
-        if (!commandSender.hasPermission(permission)) {
+        if (!commandSender.hasPermission(this.permission)) {
             commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
             return true;
         }

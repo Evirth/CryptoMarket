@@ -12,7 +12,7 @@ public class ExchangeCommand implements ICommand {
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
         if (commandSender instanceof HumanEntity) {
-            if (!commandSender.hasPermission(permission)) {
+            if (!commandSender.hasPermission(this.permission)) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
                 return true;
             }
@@ -23,8 +23,8 @@ public class ExchangeCommand implements ICommand {
             }
 
             try {
-                double amount = Double.parseDouble(strings[2].replace(",", "."));
                 Player p = new Player(commandSender.getName());
+                double amount = strings[2].equalsIgnoreCase("all") ? Double.POSITIVE_INFINITY : Double.parseDouble(strings[2].replace(",", "."));
                 p.exchange(strings[1], amount, strings[3]);
             } catch (Exception e) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));

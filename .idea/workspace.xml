@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5375e135-175e-4dcd-ac41-2e08646d068e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/CryptoMarket.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/CryptoMarket.java" />
       <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/api/Player.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/api/Player.java" />
       <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/AddCommand.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/AddCommand.java" />
       <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/CheckCommand.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/CheckCommand.java" />
@@ -17,9 +16,7 @@
       <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/StatsCommand.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/StatsCommand.java" />
       <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/TransferCommand.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/TransferCommand.java" />
       <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/WithdrawCommand.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/WithdrawCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/models/Config.java" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/models/Config.java" />
       <change beforePath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/resources/messages_en.yml" afterPath="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/resources/messages_en.yml" />
-      <change beforePath="$PROJECT_DIR$/src/plugin.yml" afterPath="$PROJECT_DIR$/src/plugin.yml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,103 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="messages_en.yml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/resources/messages_en.yml">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/api/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="48" lean-forward="true" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelpCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/HelpCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PriceCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/PriceCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StatsCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/StatsCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransferCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/TransferCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WithdrawCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/WithdrawCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/AddCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" column="45" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CheckCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/CheckCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RemoveCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/RemoveCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BalanceCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/BalanceCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="459">
+              <caret line="253" column="167" lean-forward="false" selection-start-line="253" selection-start-column="167" selection-end-line="253" selection-end-column="167" />
               <folding />
             </state>
           </provider>
@@ -196,13 +101,10 @@
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/models/Coin.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/helpers/CoinHelper.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/models/Transaction.java" />
-        <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/api/Player.java" />
         <option value="$PROJECT_DIR$/src/plugin.yml" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/models/Config.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/CryptoMarket.java" />
-        <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/BalanceCommand.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/DepositCommand.java" />
-        <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/ExchangeCommand.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/GlobalCommand.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/HelpCommand.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/PriceCommand.java" />
@@ -212,6 +114,9 @@
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/AddCommand.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/CheckCommand.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/RemoveCommand.java" />
+        <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/BalanceCommand.java" />
+        <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/ExchangeCommand.java" />
+        <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/api/Player.java" />
         <option value="$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/resources/messages_en.yml" />
       </list>
     </option>
@@ -301,6 +206,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -389,10 +295,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -559,11 +464,12 @@
       <workItem from="1519494944753" duration="5519000" />
       <workItem from="1519500587543" duration="5000" />
       <workItem from="1519548634587" duration="5198000" />
+      <workItem from="1519555440506" duration="1241000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145294000" />
+    <option name="totallyTimeSpent" value="146535000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -582,7 +488,9 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -594,9 +502,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -803,14 +709,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/api/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2886">
-          <caret line="106" column="25" lean-forward="false" selection-start-line="106" selection-start-column="13" selection-end-line="106" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/plugin.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -859,34 +757,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/DepositCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="9" column="54" lean-forward="false" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/ExchangeCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/GlobalCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/HelpCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -899,34 +773,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/StatsCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/TransferCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/WithdrawCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/AddCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="45" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -941,26 +791,82 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/RemoveCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
+        <state relative-caret-position="289">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/BalanceCommand.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="14" column="57" lean-forward="false" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/DepositCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="54" lean-forward="false" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/HelpCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/StatsCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/admin/AddCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="13" lean-forward="true" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/TransferCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <caret line="27" column="50" lean-forward="false" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/commands/player/ExchangeCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="26" column="60" lean-forward="false" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/resources/messages_en.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="48" lean-forward="true" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
+        <state relative-caret-position="204">
+          <caret line="12" column="42" lean-forward="false" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/csrv/divinecraft/evirth/cryptomarket/api/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="253" column="167" lean-forward="false" selection-start-line="253" selection-start-column="167" selection-end-line="253" selection-end-column="167" />
           <folding />
         </state>
       </provider>
