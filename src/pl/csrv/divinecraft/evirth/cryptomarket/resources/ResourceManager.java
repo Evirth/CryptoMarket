@@ -62,7 +62,7 @@ public class ResourceManager {
     }
 
     public String getResource(String name) {
-        return this.getResource(name, false);
+        return this.getResource(name, true);
     }
 
     public String getResource(String name, boolean color) {

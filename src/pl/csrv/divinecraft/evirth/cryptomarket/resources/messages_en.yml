@@ -6,6 +6,7 @@ CouldNotCompleteThisTransaction: "Could not complete this transaction. Please, m
 CouldNotFindCoin: "Could not find coin: %s"
 CouldNotGetInfoAboutCrypto: "Could not get information about crypto. Please, try again later."
 CouldNotGetPlayerBalance: "Could not get %s's balance."
+CouldNotGetPlayerStats: "Could not get %s's stats."
 DontHaveCoin: "You don't have any %s coin."
 DontHaveThatAmountOfDiamonds: "You don't have that amount of Diamonds."
 DontHaveThatManyCoins: "You don't have that many %s coins."
@@ -22,6 +23,7 @@ PlayerBalance: "%s's balance corresponds to the equivalent of $%.2f (%d Diamond(
 PlayerDoesntHaveCoin: "%s doesn't have any %s coin."
 PlayerDoesntHaveThatManyCoins: "%s doesn't have that many %s coins."
 PlayerNotFound: "Could not find the Player '%s'."
+Stats: "You've deposited &c%d&f and withdrawn &a%d&f Diamond(s).\nFinal balance: "
 Usage: "Usage"
 WithdrawAll: "You have withdrawn %d Diamond(s)."
 

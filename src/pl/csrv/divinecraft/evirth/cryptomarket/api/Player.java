@@ -3,6 +3,7 @@ package pl.csrv.divinecraft.evirth.cryptomarket.api;
 import com.lucadev.coinmarketcap.CoinMarketCap;
 import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
@@ -16,9 +17,8 @@ import pl.csrv.divinecraft.evirth.cryptomarket.models.Transaction;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Player {
     private PlayerAccount account;
@@ -283,6 +283,35 @@ public class Player {
         } catch (Exception e) {
             this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted"));
         }
+    }
+
+    public void printStats() {
+        this.player.sendMessage(this.checkStats());
+    }
+
+    public String[] checkStats() {
+        if (this.account.getBalance().isEmpty()) {
+            return CryptoMarket.resourceManager.getResource("EmptyBalance").split("\n");
+        }
+
+        List<Transaction> withdrawals = this.account.getTransactions().stream().filter(f -> f.getType() == TransactionType.WITHDRAWAL).collect(Collectors.toList());
+        List<Transaction> deposits = this.account.getTransactions().stream().filter(f -> f.getType() == TransactionType.DEPOSIT).collect(Collectors.toList());
+
+        int wDiamonds = 0;
+        int dDiamonds = 0;
+        for (Transaction t : deposits) {
+            dDiamonds += t.getAmountOfDiamonds();
+        }
+        for (Transaction t : withdrawals) {
+            wDiamonds += t.getAmountOfDiamonds();
+        }
+
+        String s = ChatColor.translateAlternateColorCodes('&', "&a%d&f ");
+        int result = wDiamonds - dDiamonds;
+        if (result < 0) {
+            s = ChatColor.translateAlternateColorCodes('&', "&c%d&f ");
+        }
+        return String.format(CryptoMarket.resourceManager.getResource("Stats") + s + CryptoMarket.resourceManager.getResource("DiamondOrS"), dDiamonds, wDiamonds, result).split("\n");
     }
 
     // region AdminCommands

@@ -33,7 +33,7 @@ public class CryptoMarket extends JavaPlugin {
         FileConfiguration fc = this.getConfig();
         fc.addDefault("price", 10);
         fc.addDefault("lang", "en");
-        fc.addDefault("tax", "0.1");
+        fc.addDefault("tax", 0.1);
         fc.options().copyDefaults(true);
         this.saveConfig();
 

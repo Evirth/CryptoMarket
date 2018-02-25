@@ -34,6 +34,9 @@ public final class CommandFactory {
             case "global":
                 c = new GlobalCommand();
                 break;
+            case "stats":
+                c = new StatsCommand();
+                break;
             case "add":
                 c = new AddCommand();
                 break;
