@@ -7,8 +7,15 @@ import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
 
 public class HelpCommand implements ICommand {
+    private String permission = "cryptomarket.player";
+
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
+        if (!commandSender.hasPermission(permission)) {
+            commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
+            return true;
+        }
+
         if (strings == null) {
             return false;
         }

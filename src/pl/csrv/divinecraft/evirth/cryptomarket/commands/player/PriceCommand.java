@@ -9,8 +9,15 @@ import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 import java.util.List;
 
 public class PriceCommand implements ICommand {
+    private String permission = "cryptomarket.player";
+
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
+        if (!commandSender.hasPermission(permission)) {
+            commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
+            return true;
+        }
+
         StringBuilder sb = new StringBuilder();
         try {
             if (strings.length < 2) {

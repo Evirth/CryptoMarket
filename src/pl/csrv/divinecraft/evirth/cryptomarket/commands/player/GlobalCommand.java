@@ -5,8 +5,15 @@ import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 
 public class GlobalCommand implements ICommand {
+    private String permission = "cryptomarket.player";
+
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
+        if (!commandSender.hasPermission(permission)) {
+            commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
+            return true;
+        }
+
         StringBuilder sb = new StringBuilder();
         try {
             sb.append("TODO: Market cap etc.");

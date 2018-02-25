@@ -7,8 +7,15 @@ import pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 
 public class WithdrawCommand implements ICommand {
+    private String permission = "cryptomarket.player";
+
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
+        if (!commandSender.hasPermission(permission)) {
+            commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
+            return true;
+        }
+
         if (commandSender instanceof HumanEntity) {
             try {
                 if (strings.length == 2 && strings[1].equals("all")) {
@@ -19,7 +26,7 @@ public class WithdrawCommand implements ICommand {
 
                 if (strings.length != 3) {
                     commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
-                    return false;
+                    return true;
                 }
 
                 Player p = new Player(commandSender.getName());

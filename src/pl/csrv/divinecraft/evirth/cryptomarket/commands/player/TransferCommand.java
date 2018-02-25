@@ -7,12 +7,19 @@ import pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 
 public class TransferCommand implements ICommand {
+    private String permission = "cryptomarket.player";
+
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
+        if (!commandSender.hasPermission(permission)) {
+            commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
+            return true;
+        }
+
         if (commandSender instanceof HumanEntity) {
             if (strings.length != 4) {
-                commandSender.sendMessage(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"));
-                return false;
+                commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
+                return true;
             }
 
             try {

@@ -8,3 +8,16 @@ commands:
     description: Type '/cryptomarket help' to get more information.
     aliases: [cm]
     usage: /cm help
+
+permission:
+  cryptomarket.*:
+    description: Gives access to all CryptoMarket commands
+    children:
+      cryptomarket.player: true
+      cryptomarket.admin: true
+
+  cryptomarket.player:
+    description: Gives access to player's CryptoMarket commands
+
+  cryptomarket.admin:
+    description: Gives access to admin's CryptoMarket commands
