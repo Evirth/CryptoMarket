@@ -45,7 +45,7 @@ public class Player {
                 ItemStack diamonds = new ItemStack(Material.DIAMOND);
                 diamonds.setAmount(amount);
                 this.player.getInventory().addItem(diamonds);
-                this.checkBalance();
+                this.printBalance();
 
                 Transaction t = new Transaction(
                         this.name,
@@ -72,42 +72,46 @@ public class Player {
     }
 
     public void withdrawAll() {
-        if (this.account.getBalance().isEmpty()) {
-            this.player.sendMessage(CryptoMarket.resourceManager.getResource("EmptyBalance"));
-            return;
+        try {
+            if (this.account.getBalance().isEmpty()) {
+                this.player.sendMessage(CryptoMarket.resourceManager.getResource("EmptyBalance"));
+                return;
+            }
+
+            int d = 0;
+            for (Map.Entry<String, Coin> m : this.account.getBalance().entrySet()) {
+                CoinMarket coin = CoinMarketCap.ticker(m.getValue().getId()).get();
+                int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), m.getValue().getAmount());
+                double amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(diamondsFromBalance, coin.getPriceUSD());
+                this.changeBalance(coin, -amountOfCrypto);
+                d += diamondsFromBalance;
+
+                Transaction t = new Transaction(
+                        this.name,
+                        new Date(),
+                        coin.getName(),
+                        CryptoMarket.resourceManager.getResource("Diamonds"),
+                        TransactionType.WITHDRAWAL,
+                        amountOfCrypto,
+                        diamondsFromBalance,
+                        coin.getPriceUSD(),
+                        null,
+                        null,
+                        null,
+                        null);
+                this.account.getTransactions().add(t);
+            }
+
+            ItemStack diamonds = new ItemStack(Material.DIAMOND);
+            diamonds.setAmount(d);
+            this.player.getInventory().addItem(diamonds);
+            this.printBalance();
+            this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("WithdrawAll"), d));
+
+            this.update();
+        } catch (Exception e) {
+            this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted"));
         }
-
-        int d = 0;
-        for (Map.Entry<String, Coin> m : this.account.getBalance().entrySet()) {
-            CoinMarket coin = CoinMarketCap.ticker(m.getValue().getId()).get();
-            int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), m.getValue().getAmount());
-            double amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(diamondsFromBalance, coin.getPriceUSD());
-            this.changeBalance(coin, -amountOfCrypto);
-            d += diamondsFromBalance;
-
-            Transaction t = new Transaction(
-                    this.name,
-                    new Date(),
-                    coin.getName(),
-                    CryptoMarket.resourceManager.getResource("Diamonds"),
-                    TransactionType.WITHDRAWAL,
-                    amountOfCrypto,
-                    diamondsFromBalance,
-                    coin.getPriceUSD(),
-                    null,
-                    null,
-                    null,
-                    null);
-            this.account.getTransactions().add(t);
-        }
-
-        ItemStack diamonds = new ItemStack(Material.DIAMOND);
-        diamonds.setAmount(d);
-        this.player.getInventory().addItem(diamonds);
-        this.checkBalance();
-        this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("WithdrawAll"), d));
-
-        this.update();
     }
 
     public void deposit(int amountOfDiamonds, String crypto) {
@@ -128,7 +132,7 @@ public class Player {
             ItemStack diamonds = new ItemStack(Material.DIAMOND);
             diamonds.setAmount(amountOfDiamonds);
             this.player.getInventory().removeItem(diamonds);
-            this.checkBalance();
+            this.printBalance();
 
             Transaction t = new Transaction(
                     this.name,
@@ -179,7 +183,7 @@ public class Player {
             this.changeBalance(fromCoin, -amount);
             double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount, toCoin.getPriceUSD());
             this.changeBalance(toCoin, amountOfNewCoin);
-            this.checkBalance();
+            this.printBalance();
             this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("Exchange"), amount, fromCoin.getSymbol(), fromCoin.getPriceUSD() * amount, amountOfDiamonds, amountOfNewCoin, toCoin.getSymbol()));
 
             Transaction t = new Transaction(
@@ -248,10 +252,10 @@ public class Player {
             }
 
             this.changeBalance(coin, -amountOfCrypto);
-            this.checkBalance();
+            this.printBalance();
             p2.changeBalance(coin, amountOfCrypto);
-            p2.checkBalance();
-            p2.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("GotTransfer"), this.name, amountOfCrypto, coin.getPriceUSD() * amountOfCrypto, amountOfDiamonds, coin.getName()));
+            p2.printBalance();
+            p2.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("GotTransfer"), this.name, amountOfCrypto, coin.getSymbol(), coin.getPriceUSD() * amountOfCrypto, amountOfDiamonds));
 
             Transaction t = new Transaction(
                     this.name,
@@ -276,12 +280,109 @@ public class Player {
         }
     }
 
-    public void checkBalance() {
-        this.player.sendMessage(CryptoMarket.resourceManager.getResource("CalculatingThePrices"));
-        this.player.sendMessage(this.account.printBalance().split("\n"));
+    // region AdminCommands
+
+    public void addBalance(String crypto, String amount, String executorName) throws IllegalArgumentException {
+        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
+        if (coin == null) {
+            throw new IllegalArgumentException(String.format(CryptoMarket.resourceManager.getResource("CouldNotFindCoin"), crypto));
+        }
+
+        int amountOfDiamonds;
+        double amountOfCrypto;
+
+        if (amount.endsWith("D") || amount.endsWith("d")) {
+            amountOfDiamonds = Math.abs(Integer.parseInt(amount.substring(0, amount.length() - 1))); // Remove 'D' or 'd' char and parse to int
+            amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(amountOfDiamonds, coin.getPriceUSD());
+        } else {
+            amountOfCrypto = Double.parseDouble(amount.replace(",", "."));
+            amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfCrypto);
+        }
+
+        this.changeBalance(coin, amountOfCrypto);
+        this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("AdminSentYouCrypto"), amountOfCrypto, coin.getSymbol(), amountOfCrypto * coin.getPriceUSD(), amountOfDiamonds));
+
+        Transaction t = new Transaction(
+                executorName,
+                new Date(),
+                null,
+                coin.getName(),
+                TransactionType.ADMIN_ADD,
+                amountOfCrypto,
+                amountOfDiamonds,
+                coin.getPriceUSD(),
+                null,
+                null,
+                null,
+                null);
+        this.account.getTransactions().add(t);
+
+        this.update();
     }
 
-    private void changeBalance(CoinMarket coin, double amountOfCrypto) {
+    public void removeBalance(String crypto, String amount, String executorName) throws IllegalArgumentException {
+        CoinMarket coin = CoinMarketCap.ticker(crypto).get();
+        if (coin == null) {
+            throw new IllegalArgumentException(String.format(CryptoMarket.resourceManager.getResource("CouldNotFindCoin"), crypto));
+        }
+
+        if (!this.account.getBalance().containsKey(coin.getName())) {
+            throw new IllegalArgumentException(String.format(CryptoMarket.resourceManager.getResource("PlayerDoesntHaveCoin"), this.name, crypto));
+        }
+
+        int amountOfDiamonds;
+        double amountOfCrypto;
+
+        if (amount.equalsIgnoreCase("all")) {
+            amountOfCrypto = this.account.getBalance().get(coin.getName()).getAmount();
+            amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfCrypto);
+        }
+        else if (amount.endsWith("D") || amount.endsWith("d")) {
+            amountOfDiamonds = Math.abs(Integer.parseInt(amount.substring(0, amount.length() - 1))); // Remove 'D' or 'd' char and parse to int
+            amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(amountOfDiamonds, coin.getPriceUSD());
+        } else {
+            amountOfCrypto = Double.parseDouble(amount.replace(",", "."));
+            amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfCrypto);
+        }
+
+        int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), this.account.getBalance().get(crypto).getAmount());
+        if (diamondsFromBalance < amountOfDiamonds) {
+            throw new IllegalArgumentException(String.format(CryptoMarket.resourceManager.getResource("PlayerDoesntHaveThatManyCoins"), this.name, coin.getName()));
+        }
+
+        this.changeBalance(coin, -amountOfCrypto);
+        this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("AdminTookYourCrypto"), amountOfCrypto, coin.getSymbol(), amountOfCrypto * coin.getPriceUSD(), amountOfDiamonds));
+
+        Transaction t = new Transaction(
+                executorName,
+                new Date(),
+                coin.getName(),
+                null,
+                TransactionType.ADMIN_REMOVE,
+                amountOfCrypto,
+                amountOfDiamonds,
+                coin.getPriceUSD(),
+                null,
+                null,
+                null,
+                null);
+        this.account.getTransactions().add(t);
+
+        this.update();
+    }
+
+    // endregion AdminCommands
+
+    public String[] checkBalance() {
+        return this.account.printBalance().split("\n");
+    }
+
+    public void printBalance() {
+        this.player.sendMessage(CryptoMarket.resourceManager.getResource("CalculatingThePrices"));
+        this.player.sendMessage(this.checkBalance());
+    }
+
+    private void changeBalance(CoinMarket coin, double amountOfCrypto) throws IllegalArgumentException {
         try {
             if (amountOfCrypto == 0) {
                 return;
@@ -302,7 +403,7 @@ public class Player {
                 }
             }
         } catch (Exception e) {
-            this.player.sendMessage(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted"));
+            throw new IllegalArgumentException(CryptoMarket.resourceManager.getResource("PaymentCannotBeCompleted"));
         }
     }
 

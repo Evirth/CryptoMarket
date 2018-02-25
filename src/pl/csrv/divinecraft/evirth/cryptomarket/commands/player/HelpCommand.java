@@ -25,13 +25,12 @@ public class HelpCommand implements ICommand {
             String helpMsg = String.format(CryptoMarket.resourceManager.getResource("HelpHeader") + "\n", CryptoMarket.config.price);
             sb.append(helpMsg);
             for (Command c : CommandExecutorImpl.availableCommands) {
-                sb.append(String.format("/cm %s - %s\n", c.name, c.description));
+                sb.append(String.format("/cm %s - %s\n", c.getName(), c.getDescription()));
             }
-        }
-        else {
+        } else {
             for (Command c : CommandExecutorImpl.availableCommands) {
-                if (strings[1].equals(c.name)) {
-                    sb.append(String.format("/cm %s - %s\n%s: %s\n", c.name, c.description, CryptoMarket.resourceManager.getResource("Usage"),c.usage));
+                if (strings[1].equals(c.getName())) {
+                    sb.append(String.format("%s\n%s: %s\n", c.getDescription(), CryptoMarket.resourceManager.getResource("Usage"), c.getUsage()));
                     break;
                 }
             }

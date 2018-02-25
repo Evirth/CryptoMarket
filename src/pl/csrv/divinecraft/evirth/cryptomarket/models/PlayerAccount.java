@@ -46,7 +46,7 @@ public class PlayerAccount {
             b += usd;
         }
         sb.append("------------------------------");
-        sb.insert(0, String.format(CryptoMarket.resourceManager.getResource("YourBalance") + "\n", b, (int) Math.floor(b / CryptoMarket.config.price)));
+        sb.insert(0, String.format(CryptoMarket.resourceManager.getResource("PlayerBalance") + "\n", this.player, b, (int) Math.floor(b / CryptoMarket.config.price)));
         return sb.toString();
     }
 

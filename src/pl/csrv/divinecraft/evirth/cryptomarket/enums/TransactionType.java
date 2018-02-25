@@ -4,5 +4,7 @@ public enum TransactionType {
     DEPOSIT,
     WITHDRAWAL,
     TRANSFER,
-    EXCHANGE
+    EXCHANGE,
+    ADMIN_ADD,
+    ADMIN_REMOVE
 }

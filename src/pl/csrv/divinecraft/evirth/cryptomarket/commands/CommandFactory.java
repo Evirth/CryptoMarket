@@ -1,10 +1,14 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.commands;
 
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.admin.*;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.player.*;
 
-public class CommandFactory {
+public final class CommandFactory {
+    private CommandFactory() {
+    }
+
     public static ICommand create(String command) {
-        ICommand c = null;
+        ICommand c;
         switch (command) {
             case "help":
                 c = new HelpCommand();
@@ -30,6 +34,17 @@ public class CommandFactory {
             case "global":
                 c = new GlobalCommand();
                 break;
+            case "add":
+                c = new AddCommand();
+                break;
+            case "remove":
+                c = new RemoveCommand();
+                break;
+            case "check":
+                c = new CheckCommand();
+                break;
+            default:
+                c = new HelpCommand();
         }
         return c;
     }

@@ -12,13 +12,16 @@ public class CommandExecutorImpl implements CommandExecutor {
         availableCommands = new Command[]{
                 new Command("help", CryptoMarket.resourceManager.getResource("HelpCommandDescription")),
                 new Command("balance", CryptoMarket.resourceManager.getResource("BalanceCommandDescription")),
-                new Command("withdraw", CryptoMarket.resourceManager.getResource("WithdrawCommandDescription"), "/cm withdraw 10 Bitcoin"),
-                new Command("deposit", CryptoMarket.resourceManager.getResource("DepositCommandDescription"), "/cm deposit 10 Bitcoin"),
-                new Command("transfer", CryptoMarket.resourceManager.getResource("TransferCommandDescription"), "'/cm transfer Bitcoin 0.01 Evirth' or '/cm transfer Bitcoin 1D Evirth'"),
-                new Command("exchange", CryptoMarket.resourceManager.getResource("ExchangeCommandDescription"), "'/cm exchange Bitcoin 1 IOTA' or '/cm exchange Bitcoin 1D IOTA'"),
-                new Command("price", CryptoMarket.resourceManager.getResource("PriceCommandDescription"), "'/cm price IOTA' or '/cm price' - top 10"),
-                new Command("global", CryptoMarket.resourceManager.getResource("GlobalCommandDescription"), "/cm global"),
-                new Command("stats", CryptoMarket.resourceManager.getResource("StatsCommandDescription"), "/cm stats")
+                new Command("withdraw", CryptoMarket.resourceManager.getResource("WithdrawCommandDescription"), "/cm withdraw <amount> <crypto>"),
+                new Command("deposit", CryptoMarket.resourceManager.getResource("DepositCommandDescription"), "/cm deposit <amount> <crypto>"),
+                new Command("transfer", CryptoMarket.resourceManager.getResource("TransferCommandDescription"), "/cm transfer <crypto> <amount> <toPlayer>"),
+                new Command("exchange", CryptoMarket.resourceManager.getResource("ExchangeCommandDescription"), "/cm exchange <fromCrypto> <amount>[d] <toCrypto>"),
+                new Command("price", CryptoMarket.resourceManager.getResource("PriceCommandDescription"), "/cm price [<crypto>]"),
+                //new Command("global", CryptoMarket.resourceManager.getResource("GlobalCommandDescription"), "/cm global"),
+                //new Command("stats", CryptoMarket.resourceManager.getResource("StatsCommandDescription"), "/cm stats"),
+                new Command("add", CryptoMarket.resourceManager.getResource("AddCommandDescription"), "/cm add <player> <amount>[d] <crypto>"),
+                new Command("remove", CryptoMarket.resourceManager.getResource("RemoveCommandDescription"), "/cm remove <player> <amount>[d] <crypto>"),
+                new Command("check", CryptoMarket.resourceManager.getResource("CheckCommandDescription"), "/cm check <player>")
         };
     }
 

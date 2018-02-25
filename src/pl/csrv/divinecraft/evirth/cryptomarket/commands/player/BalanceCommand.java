@@ -18,7 +18,7 @@ public class BalanceCommand implements ICommand {
             }
 
             Player p = new Player(commandSender.getName());
-            p.checkBalance();
+            p.printBalance();
         } else {
             commandSender.sendMessage("[CryptoMarket] Only players can use this command.");
         }
