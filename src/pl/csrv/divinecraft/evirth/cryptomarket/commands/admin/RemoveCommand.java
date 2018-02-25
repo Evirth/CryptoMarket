@@ -1,10 +1,13 @@
 package pl.csrv.divinecraft.evirth.cryptomarket.commands.admin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+
+import java.util.Arrays;
 
 public class RemoveCommand implements ICommand {
     private String permission = "cryptomarket.admin";
@@ -22,12 +25,13 @@ public class RemoveCommand implements ICommand {
                 return true;
             }
 
-            if (Bukkit.getServer().getPlayer(strings[1]) == null) {
+            OfflinePlayer o = Arrays.stream(Bukkit.getOfflinePlayers()).filter(f ->  f.getName().equalsIgnoreCase(strings[1])).findFirst().orElse(null);
+            if (o == null) {
                 commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("PlayerNotFound"), strings[1]));
                 return true;
             }
 
-            Player p = new Player(strings[1]);
+            Player p = new Player(o.getName());
             p.removeBalance(strings[3], strings[2], commandSender.getName());
             commandSender.sendMessage(p.checkBalance());
         } catch (IllegalArgumentException e) {

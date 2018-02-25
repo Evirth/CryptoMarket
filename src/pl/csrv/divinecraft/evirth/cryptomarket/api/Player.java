@@ -4,6 +4,7 @@ import com.lucadev.coinmarketcap.CoinMarketCap;
 import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
@@ -15,6 +16,7 @@ import pl.csrv.divinecraft.evirth.cryptomarket.models.Transaction;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
@@ -209,12 +211,13 @@ public class Player {
 
     public void transfer(String crypto, String amount, String toPlayer) {
         try {
-            Player p2 = new Player(toPlayer);
-            if (p2.player == null) {
+            OfflinePlayer o = Arrays.stream(Bukkit.getOfflinePlayers()).filter(f -> f.getName().equalsIgnoreCase(toPlayer)).findFirst().orElse(null);
+            if (o == null) {
                 this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("PlayerNotFound"), toPlayer));
                 return;
             }
 
+            Player p2 = new Player(o.getName());
             if (p2.name.equals(this.name)) {
                 this.player.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
                 return;
@@ -254,8 +257,10 @@ public class Player {
             this.changeBalance(coin, -amountOfCrypto);
             this.printBalance();
             p2.changeBalance(coin, amountOfCrypto);
-            p2.printBalance();
-            p2.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("GotTransfer"), this.name, amountOfCrypto, coin.getSymbol(), coin.getPriceUSD() * amountOfCrypto, amountOfDiamonds));
+            if (o.isOnline()) {
+                p2.printBalance();
+                p2.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("GotTransfer"), this.name, amountOfCrypto, coin.getSymbol(), coin.getPriceUSD() * amountOfCrypto, amountOfDiamonds));
+            }
 
             Transaction t = new Transaction(
                     this.name,
@@ -336,8 +341,7 @@ public class Player {
         if (amount.equalsIgnoreCase("all")) {
             amountOfCrypto = this.account.getBalance().get(coin.getName()).getAmount();
             amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfCrypto);
-        }
-        else if (amount.endsWith("D") || amount.endsWith("d")) {
+        } else if (amount.endsWith("D") || amount.endsWith("d")) {
             amountOfDiamonds = Math.abs(Integer.parseInt(amount.substring(0, amount.length() - 1))); // Remove 'D' or 'd' char and parse to int
             amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(amountOfDiamonds, coin.getPriceUSD());
         } else {

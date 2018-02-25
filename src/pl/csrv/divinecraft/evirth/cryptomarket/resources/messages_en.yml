@@ -18,6 +18,7 @@ HelpHeader: "This is cryptocurrency market simulator based on real prices.\nOne 
 IncorrectUseOfCommand: "Incorrect use of the command. Type '/cm help %s' to know the proper usage."
 MissingPermission: "You don't have permission to use this command."
 PaymentCannotBeCompleted: "The payment can not be completed at this time."
+PlayerBalance: "%s's balance corresponds to the equivalent of $%.2f (%d Diamond(s))"
 PlayerDoesntHaveCoin: "%s doesn't have any %s coin."
 PlayerDoesntHaveThatManyCoins: "%s doesn't have that many %s coins."
 PlayerNotFound: "Could not find the Player '%s'."
