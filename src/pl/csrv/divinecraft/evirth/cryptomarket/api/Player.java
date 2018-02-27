@@ -61,6 +61,7 @@ public class Player {
                         null,
                         null,
                         null,
+                        null,
                         null);
                 this.account.getTransactions().add(t);
 
@@ -97,6 +98,7 @@ public class Player {
                         amountOfCrypto,
                         diamondsFromBalance,
                         coin.getPriceUSD(),
+                        null,
                         null,
                         null,
                         null,
@@ -148,6 +150,7 @@ public class Player {
                     null,
                     null,
                     null,
+                    null,
                     null);
             this.account.getTransactions().add(t);
 
@@ -183,7 +186,7 @@ public class Player {
             CoinMarket fromCoin = CoinMarketCap.ticker(fromC.getId()).get();
             int amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(fromCoin.getPriceUSD(), amount);
             this.changeBalance(fromCoin, -amount);
-            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount, toCoin.getPriceUSD());
+            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount - (amount * CryptoMarket.config.tax), toCoin.getPriceUSD());
             this.changeBalance(toCoin, amountOfNewCoin);
             this.printBalance();
             this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("Exchange"), amount, fromCoin.getSymbol(), fromCoin.getPriceUSD() * amount, amountOfDiamonds, amountOfNewCoin, toCoin.getSymbol()));
@@ -200,7 +203,8 @@ public class Player {
                     null,
                     null,
                     amountOfNewCoin,
-                    toCoin.getPriceUSD());
+                    toCoin.getPriceUSD(),
+                    CryptoMarket.config.tax * 100);
             this.account.getTransactions().add(t);
 
             this.update();
@@ -256,10 +260,13 @@ public class Player {
 
             this.changeBalance(coin, -amountOfCrypto);
             this.printBalance();
-            p2.changeBalance(coin, amountOfCrypto);
+
+            double amountOfNewCoin = amountOfCrypto - (amountOfCrypto * CryptoMarket.config.tax);
+            int amountOfNewDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfNewCoin);
+            p2.changeBalance(coin, amountOfNewCoin);
             if (o.isOnline()) {
                 p2.printBalance();
-                p2.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("GotTransfer"), this.name, amountOfCrypto, coin.getSymbol(), coin.getPriceUSD() * amountOfCrypto, amountOfDiamonds));
+                p2.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("GotTransfer"), this.name, amountOfNewCoin, coin.getSymbol(), coin.getPriceUSD() * amountOfNewCoin, amountOfNewDiamonds));
             }
 
             Transaction t = new Transaction(
@@ -273,8 +280,9 @@ public class Player {
                     coin.getPriceUSD(),
                     this.name,
                     p2.name,
-                    null,
-                    null);
+                    amountOfNewCoin,
+                    coin.getPriceUSD(),
+                    CryptoMarket.config.tax * 100);
             this.account.getTransactions().add(t);
             p2.account.getTransactions().add(t);
 
@@ -348,6 +356,7 @@ public class Player {
                 null,
                 null,
                 null,
+                null,
                 null);
         this.account.getTransactions().add(t);
 
@@ -395,6 +404,7 @@ public class Player {
                 amountOfCrypto,
                 amountOfDiamonds,
                 coin.getPriceUSD(),
+                null,
                 null,
                 null,
                 null,

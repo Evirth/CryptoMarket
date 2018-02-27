@@ -17,10 +17,11 @@ public class Transaction {
     private int amountOfDiamonds;
     private double cryptoPriceInUSD;
     private Double newCryptoPriceInUSD;
+    private Double tax;
 
     public Transaction() { }
 
-    public Transaction(String executorName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds, double cryptoPriceInUSD, String fromPlayer, String toPlayer, Double amountOfNewCrypto, Double newCryptoPriceInUSD) {
+    public Transaction(String executorName, Date transactionDate, String fromCurrency, String toCurrency, TransactionType type, double amountOfCrypto, int amountOfDiamonds, double cryptoPriceInUSD, String fromPlayer, String toPlayer, Double amountOfNewCrypto, Double newCryptoPriceInUSD, Double tax) {
         this.executorName = executorName;
         this.fromPlayer = fromPlayer;
         this.toPlayer = toPlayer;
@@ -33,6 +34,7 @@ public class Transaction {
         this.amountOfDiamonds = amountOfDiamonds;
         this.cryptoPriceInUSD = cryptoPriceInUSD;
         this.newCryptoPriceInUSD = newCryptoPriceInUSD;
+        this.tax = tax;
     }
 
     public String getExecutorName() {
@@ -129,5 +131,13 @@ public class Transaction {
 
     public void setNewCryptoPriceInUSD(Double newCryptoPriceInUSD) {
         this.newCryptoPriceInUSD = newCryptoPriceInUSD;
+    }
+
+    public Double getTax() {
+        return this.tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
     }
 }
