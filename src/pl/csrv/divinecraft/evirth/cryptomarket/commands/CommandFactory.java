@@ -43,9 +43,6 @@ public final class CommandFactory {
             case "remove":
                 c = new RemoveCommand();
                 break;
-            case "check":
-                c = new CheckCommand();
-                break;
             default:
                 c = new HelpCommand();
         }

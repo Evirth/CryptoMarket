@@ -21,7 +21,12 @@ public class StatsCommand implements ICommand {
                 return true;
             }
 
-            if (!(commandSender instanceof HumanEntity)&& strings.length != 2) {
+            if (strings.length > 2) {
+                commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
+                return true;
+            }
+
+            if (!(commandSender instanceof HumanEntity) && strings.length != 2) {
                 commandSender.sendMessage("[CryptoMarket] Only players can use this command.");
                 return true;
             }
@@ -29,11 +34,6 @@ public class StatsCommand implements ICommand {
             boolean isAdmin = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN);
             if (strings.length == 2 && !isAdmin) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
-                return true;
-            }
-
-            if (strings.length != 1 && !isAdmin) {
-                commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("IncorrectUseOfCommand"), strings[0]));
                 return true;
             }
 
