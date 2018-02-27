@@ -6,16 +6,16 @@ import org.bukkit.command.CommandSender;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 
 import java.util.Arrays;
 
 public class RemoveCommand implements ICommand {
-    private String permission = "cryptomarket.admin";
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
         try {
-            if (!commandSender.hasPermission(this.permission)) {
+            if (!commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN)) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
                 return true;
             }

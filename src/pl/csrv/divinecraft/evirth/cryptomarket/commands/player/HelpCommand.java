@@ -4,14 +4,14 @@ import org.bukkit.command.CommandSender;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutorImpl;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
 
 public class HelpCommand implements ICommand {
-    private String permission = "cryptomarket.player";
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
-        if (!commandSender.hasPermission(this.permission)) {
+        if (!commandSender.hasPermission(Permissions.CRYPTOMARKET_PLAYER)) {
             commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
             return true;
         }

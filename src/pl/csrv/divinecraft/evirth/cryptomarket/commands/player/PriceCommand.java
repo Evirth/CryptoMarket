@@ -5,15 +5,15 @@ import com.lucadev.coinmarketcap.model.CoinMarket;
 import org.bukkit.command.CommandSender;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 
 import java.util.List;
 
 public class PriceCommand implements ICommand {
-    private String permission = "cryptomarket.player";
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
-        if (!commandSender.hasPermission(this.permission)) {
+        if (!commandSender.hasPermission(Permissions.CRYPTOMARKET_PLAYER)) {
             commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
             return true;
         }

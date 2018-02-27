@@ -7,16 +7,16 @@ import org.bukkit.entity.HumanEntity;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
 import pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 
 import java.util.Arrays;
 
 public class StatsCommand implements ICommand {
-    private String permission = "cryptomarket.player";
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
         try {
-            if (!commandSender.hasPermission(this.permission)) {
+            if (!commandSender.hasPermission(Permissions.CRYPTOMARKET_PLAYER)) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
                 return true;
             }
@@ -26,7 +26,7 @@ public class StatsCommand implements ICommand {
                 return true;
             }
 
-            boolean isAdmin = commandSender.hasPermission("cryptomarket.admin");
+            boolean isAdmin = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN);
             if (strings.length == 2 && !isAdmin) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
                 return true;
