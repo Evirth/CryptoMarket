@@ -16,25 +16,25 @@ public class CoinHelper {
     public static int calculateAmountOfDiamondsFromCoins(String crypto, double amountOfCrypto) throws IllegalArgumentException {
         CoinMarket coin = CoinMarketCap.ticker(crypto).get();
         if (coin != null) {
-            return (int) Math.floor(coin.getPriceUSD() * amountOfCrypto / CryptoMarket.config.price);
+            return (int) Math.floor(coin.getPriceUSD() * amountOfCrypto / CryptoMarket.config.getPrice());
         }
         throw new IllegalArgumentException("Crypto not found.");
     }
 
     public static int calculateAmountOfDiamondsFromCoins(double cryptoPriceInUSD, double amountOfCrypto) {
-        return (int) Math.floor(cryptoPriceInUSD * amountOfCrypto / CryptoMarket.config.price);
+        return (int) Math.floor(cryptoPriceInUSD * amountOfCrypto / CryptoMarket.config.getPrice());
     }
 
     public static double calculateAmountOfCryptoFromDiamonds(String crypto, int diamonds) throws IllegalArgumentException {
         CoinMarket coin = CoinMarketCap.ticker(crypto).get();
         if (coin != null) {
-            return diamonds * CryptoMarket.config.price / coin.getPriceUSD();
+            return diamonds * CryptoMarket.config.getPrice() / coin.getPriceUSD();
         }
         throw new IllegalArgumentException("Crypto not found.");
     }
 
     public static double calculateAmountOfCryptoFromDiamonds(int diamonds, double cryptoPriceInUSD) {
-        return diamonds * CryptoMarket.config.price / cryptoPriceInUSD;
+        return diamonds * CryptoMarket.config.getPrice() / cryptoPriceInUSD;
     }
 
     public static double calculateAmountOfNewCrypto(String oldCrypto, double amountOfOldCrypto, String newCrypto) throws IllegalArgumentException {

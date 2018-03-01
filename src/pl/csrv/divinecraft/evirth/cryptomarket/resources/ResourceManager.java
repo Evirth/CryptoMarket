@@ -23,13 +23,13 @@ public class ResourceManager {
 
     public ResourceManager(Plugin plugin) {
         this.plugin = plugin;
-        String p = Paths.get(CryptoMarket.pluginDir, "Resources", String.format("messages_%s.yml", CryptoMarket.config.lang)).toString();
+        String p = Paths.get(CryptoMarket.pluginDir, "Resources", String.format("messages_%s.yml", CryptoMarket.config.getLang())).toString();
         List<String> lang = new ArrayList<>(Arrays.asList("en"));   // Maybe for more languages support in the future
-        if (!lang.contains(CryptoMarket.config.lang) && !new File(p).exists()) {
-            this.plugin.getLogger().warning(String.format("Cannot find 'messages_%s.yml'. Loading 'messages_en.yml'", CryptoMarket.config.lang));
-            CryptoMarket.config.lang = "en";
+        if (!lang.contains(CryptoMarket.config.getLang()) && !new File(p).exists()) {
+            this.plugin.getLogger().warning(String.format("Cannot find 'messages_%s.yml'. Loading 'messages_en.yml'", CryptoMarket.config.getLang()));
+            CryptoMarket.config.setLang("en");
         }
-        String selectedFile = String.format("messages_%s.yml", CryptoMarket.config.lang);
+        String selectedFile = String.format("messages_%s.yml", CryptoMarket.config.getLang());
         this.resourcePath = Paths.get(CryptoMarket.pluginDir, "Resources").toString();
         this.resourceFile = new File(Paths.get(this.resourcePath, selectedFile).toString());
         try {

@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
+import pl.csrv.divinecraft.evirth.cryptomarket.commands.helpers.PrintHelper;
 import pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
 import pl.csrv.divinecraft.evirth.cryptomarket.helpers.CoinHelper;
 import pl.csrv.divinecraft.evirth.cryptomarket.helpers.XmlSerializationHelper;
@@ -131,7 +132,7 @@ public class Player {
                 return;
             }
 
-            double amountOfCrypto = amountOfDiamonds * CryptoMarket.config.price / coin.getPriceUSD();
+            double amountOfCrypto = amountOfDiamonds * CryptoMarket.config.getPrice() / coin.getPriceUSD();
             this.changeBalance(coin, amountOfCrypto);
             ItemStack diamonds = new ItemStack(Material.DIAMOND);
             diamonds.setAmount(amountOfDiamonds);
@@ -186,7 +187,7 @@ public class Player {
             CoinMarket fromCoin = CoinMarketCap.ticker(fromC.getId()).get();
             int amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(fromCoin.getPriceUSD(), amount);
             this.changeBalance(fromCoin, -amount);
-            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount - (amount * CryptoMarket.config.tax), toCoin.getPriceUSD());
+            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount - (amount * CryptoMarket.config.getTax()), toCoin.getPriceUSD());
             this.changeBalance(toCoin, amountOfNewCoin);
             this.printBalance();
             this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("Exchange"), amount, fromCoin.getSymbol(), fromCoin.getPriceUSD() * amount, amountOfDiamonds, amountOfNewCoin, toCoin.getSymbol()));
@@ -204,7 +205,7 @@ public class Player {
                     null,
                     amountOfNewCoin,
                     toCoin.getPriceUSD(),
-                    CryptoMarket.config.tax * 100);
+                    CryptoMarket.config.getTax() * 100);
             this.account.getTransactions().add(t);
 
             this.update();
@@ -261,7 +262,7 @@ public class Player {
             this.changeBalance(coin, -amountOfCrypto);
             this.printBalance();
 
-            double amountOfNewCoin = amountOfCrypto - (amountOfCrypto * CryptoMarket.config.tax);
+            double amountOfNewCoin = amountOfCrypto - (amountOfCrypto * CryptoMarket.config.getTax());
             int amountOfNewDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfNewCoin);
             p2.changeBalance(coin, amountOfNewCoin);
             if (o.isOnline()) {
@@ -282,7 +283,7 @@ public class Player {
                     p2.name,
                     amountOfNewCoin,
                     coin.getPriceUSD(),
-                    CryptoMarket.config.tax * 100);
+                    CryptoMarket.config.getTax() * 100);
             this.account.getTransactions().add(t);
             p2.account.getTransactions().add(t);
 
@@ -320,6 +321,23 @@ public class Player {
             s = ChatColor.translateAlternateColorCodes('&', "&c%d&f ");
         }
         return String.format(CryptoMarket.resourceManager.getResource("Stats") + s + CryptoMarket.resourceManager.getResource("DiamondOrS"), dDiamonds, wDiamonds, result).split("\n");
+    }
+
+    public String[] checkBalance() {
+        return this.account.printBalance();
+    }
+
+    public void printBalance() {
+        this.player.sendMessage(CryptoMarket.resourceManager.getResource("CalculatingThePrices"));
+        this.player.sendMessage(this.checkBalance());
+    }
+
+    public String[] checkHistory() {
+        return this.account.printHistory();
+    }
+
+    public void printHistory(int page) {
+        this.player.sendMessage(PrintHelper.getPage(this.checkHistory(), page));
     }
 
     // region AdminCommands
@@ -415,15 +433,6 @@ public class Player {
     }
 
     // endregion AdminCommands
-
-    public String[] checkBalance() {
-        return this.account.printBalance().split("\n");
-    }
-
-    public void printBalance() {
-        this.player.sendMessage(CryptoMarket.resourceManager.getResource("CalculatingThePrices"));
-        this.player.sendMessage(this.checkBalance());
-    }
 
     private void changeBalance(CoinMarket coin, double amountOfCrypto) throws IllegalArgumentException {
         try {
