@@ -64,7 +64,7 @@ public class Player {
                         null,
                         null,
                         null);
-                this.account.getTransactions().add(t);
+                this.account.getTransactions().add(0, t);
 
                 this.update();
             } else {
@@ -108,7 +108,7 @@ public class Player {
                         null,
                         null,
                         null);
-                this.account.getTransactions().add(t);
+                this.account.getTransactions().add(0, t);
             }
 
             ItemStack diamonds = new ItemStack(Material.DIAMOND);
@@ -157,7 +157,7 @@ public class Player {
                     null,
                     null,
                     null);
-            this.account.getTransactions().add(t);
+            this.account.getTransactions().add(0, t);
 
             this.update();
         } catch (Exception e) {
@@ -210,7 +210,7 @@ public class Player {
                     amountOfNewCoin,
                     toCoin.getPriceUSD(),
                     CryptoMarket.config.getTax() * 100);
-            this.account.getTransactions().add(t);
+            this.account.getTransactions().add(0, t);
 
             this.update();
         } catch (Exception e) {
@@ -288,8 +288,8 @@ public class Player {
                     amountOfNewCoin,
                     coin.getPriceUSD(),
                     CryptoMarket.config.getTax() * 100);
-            this.account.getTransactions().add(t);
-            p2.account.getTransactions().add(t);
+            this.account.getTransactions().add(0, t);
+            p2.account.getTransactions().add(0, t);
 
             this.update();
             p2.update();
@@ -380,7 +380,7 @@ public class Player {
                 null,
                 null,
                 null);
-        this.account.getTransactions().add(t);
+        this.account.getTransactions().add(0, t);
 
         this.update();
     }
@@ -431,7 +431,7 @@ public class Player {
                 null,
                 null,
                 null);
-        this.account.getTransactions().add(t);
+        this.account.getTransactions().add(0, t);
 
         this.update();
     }
