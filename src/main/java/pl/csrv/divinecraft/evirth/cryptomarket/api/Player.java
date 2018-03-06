@@ -26,6 +26,10 @@ public class Player {
     private org.bukkit.entity.Player player;
     private String name;
 
+    /**
+     * Creates an instance of a Player.
+     * @param name Player's name.
+     */
     public Player(String name) {
         this.name = name;
         this.player = Bukkit.getServer().getPlayer(name);
@@ -33,6 +37,11 @@ public class Player {
         this.initialize();
     }
 
+    /**
+     * Withdraws a certain amount of crypto from the player's balance.
+     * @param amount Amount of crypto to withdraw (in Diamonds).
+     * @param crypto Name of crypto.
+     */
     public void withdraw(int amount, String crypto) {
         try {
             if (!this.account.getBalance().containsKey(crypto)) {
@@ -75,6 +84,9 @@ public class Player {
         }
     }
 
+    /**
+     * Withdraws all crypto from the player's balance.
+     */
     public void withdrawAll() {
         try {
             if (this.account.getBalance().isEmpty()) {
@@ -123,6 +135,11 @@ public class Player {
         }
     }
 
+    /**
+     * Deposits some amount of Diamonds as crypto to the player's balance.
+     * @param amountOfDiamonds Amount of Diamonds to deposit.
+     * @param crypto Name of crypto.
+     */
     public void deposit(int amountOfDiamonds, String crypto) {
         try {
             CoinMarket coin = CoinMarketCap.ticker(crypto);
@@ -165,6 +182,12 @@ public class Player {
         }
     }
 
+    /**
+     * Exchanges some amount of crypto to another one.
+     * @param fromCrypto Name of old crypto.
+     * @param amount Amount of old crypto.
+     * @param toCrypto Name of new crypto.
+     */
     public void exchange(String fromCrypto, double amount, String toCrypto) {
         try {
             if (!this.account.getBalance().containsKey(fromCrypto)) {
@@ -218,6 +241,12 @@ public class Player {
         }
     }
 
+    /**
+     * Transfers some amount of crypto from the first Player to the second one.
+     * @param crypto Name of crypto.
+     * @param amount Amount of crypto.
+     * @param toPlayer The second Player's name.
+     */
     public void transfer(String crypto, String amount, String toPlayer) {
         try {
             OfflinePlayer o = Arrays.stream(Bukkit.getOfflinePlayers()).filter(f -> f.getName().equalsIgnoreCase(toPlayer)).findFirst().orElse(null);
@@ -298,10 +327,17 @@ public class Player {
         }
     }
 
+    /**
+     * Sends a message to the Player which presents his statistics.
+     */
     public void printStats() {
         this.player.sendMessage(this.checkStats());
     }
 
+    /**
+     * Gets a message which presents Player's statistics.
+     * @return The Player's statistics.
+     */
     public String[] checkStats() {
         if (this.account.getBalance().isEmpty()) {
             return CryptoMarket.resourceManager.getResource("EmptyBalance").split("\n");
@@ -327,25 +363,47 @@ public class Player {
         return String.format(CryptoMarket.resourceManager.getResource("Stats") + s + CryptoMarket.resourceManager.getResource("DiamondOrS"), dDiamonds, wDiamonds, result).split("\n");
     }
 
+    /**
+     * Gets a message which presents Player's balance.
+     * @return The Player's balance.
+     */
     public String[] checkBalance() {
         return this.account.printBalance();
     }
 
+    /**
+     * Sends a a message to the Player which presents his balance.
+     */
     public void printBalance() {
         this.player.sendMessage(CryptoMarket.resourceManager.getResource("CalculatingThePrices"));
         this.player.sendMessage(this.checkBalance());
     }
 
+    /**
+     * Gets a message which presents Player's transaction history.
+     * @return The Player's transaction history.
+     */
     public String[] checkHistory() {
         return this.account.printHistory();
     }
 
+    /**
+     * Sends a message to the Player which presents his transaction history.
+     * @param page The page of transaction history book.
+     */
     public void printHistory(int page) {
         this.player.sendMessage(PrintHelper.getPage(this.checkHistory(), page));
     }
 
     // region AdminCommands
 
+    /**
+     * Adds balance to the Player's account.
+     * @param crypto Name of crypto.
+     * @param amount Amount of crypto (if ends with 'D'/'d' means it's in Diamonds).
+     * @param executorName The command executor name.
+     * @throws IllegalArgumentException
+     */
     public void addBalance(String crypto, String amount, String executorName) throws IllegalArgumentException {
         CoinMarket coin = CoinMarketCap.ticker(crypto);
         if (coin == null) {
@@ -385,6 +443,13 @@ public class Player {
         this.update();
     }
 
+    /**
+     * Removes balance from the Player's account.
+     * @param crypto Name of crypto.
+     * @param amount Amount of crypto (if ends with 'D'/'d' means it's in Diamonds).
+     * @param executorName The command executor name.
+     * @throws IllegalArgumentException
+     */
     public void removeBalance(String crypto, String amount, String executorName) throws IllegalArgumentException {
         CoinMarket coin = CoinMarketCap.ticker(crypto);
         if (coin == null) {
@@ -438,6 +503,12 @@ public class Player {
 
     // endregion AdminCommands
 
+    /**
+     * Changes the Player's balance.
+     * @param coin The coin.
+     * @param amountOfCrypto Amount of crypto.
+     * @throws IllegalArgumentException
+     */
     private void changeBalance(CoinMarket coin, double amountOfCrypto) throws IllegalArgumentException {
         try {
             if (amountOfCrypto == 0) {
