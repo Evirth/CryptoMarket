@@ -41,7 +41,7 @@ public class PlayerAccount {
         for (Map.Entry<String, Coin> m : this.balance.entrySet()) {
             CoinMarket coin = CoinMarketCap.ticker(m.getKey().replace(" ", "-"));
             double usd = coin.getPriceUSD() * m.getValue().getAmount();
-            sb.append(String.format("#%d. %s (%s) - %.8f ($%.2f - %d %s)\n", coin.getRank(), coin.getName(), coin.getSymbol(), m.getValue().getAmount(), usd, (int) Math.floor(usd / CryptoMarket.config.getPrice()), CryptoMarket.resourceManager.getResource("DiamondOrS")));
+            sb.append(ChatColor.translateAlternateColorCodes('&', String.format("#%d. &6%s&f (&6%s&f) - &6%.8f&f (&6$%.2f&f - &b%d %s&f)\n", coin.getRank(), coin.getName(), coin.getSymbol(), m.getValue().getAmount(), usd, (int) Math.floor(usd / CryptoMarket.config.getPrice()), CryptoMarket.resourceManager.getResource("DiamondOrS"))));
             b += usd;
         }
         sb.append("------------------------------");
@@ -58,26 +58,26 @@ public class PlayerAccount {
             String date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(t.getTransactionDate());
             switch (t.getType()) {
                 case WITHDRAWAL:
-                    msg = String.format("[&aW&f][%s] %.8f %s (&b%d&f %s&f - $%.2f)", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD());
+                    msg = String.format("[&aW&f][%s] &6%.8f %s&f (&b%d %s&f - &6$%.2f&f)", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD());
                     break;
                 case DEPOSIT:
-                    msg = String.format("[&cD&f][%s] %.8f %s (&b%d&f %s&f - $%.2f)", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD());
+                    msg = String.format("[&cD&f][%s] &6%.8f %s&f (&b%d %s&f - &6$%.2f&f)", date, t.getAmountOfCrypto(), t.getToCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD());
                     break;
                 case TRANSFER:
                     if (this.player.equals(t.getToPlayer())) {
-                        msg = String.format("[&7T&f][%s] %.8f %s (&b%d&f %s&f - $%.2f) <- %s", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getExecutorName());
+                        msg = String.format("[&dT&f][%s] &6%.8f %s&f (&b%d %s&f - &6$%.2f&f) <- &5%s&f", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getExecutorName());
                     } else {
-                        msg = String.format("[&7T&f][%s] %.8f %s (&b%d&f %s&f - $%.2f) -> %s", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getToPlayer());
+                        msg = String.format("[&dT&f][%s] &6%.8f %s&f (&b%d %s&f - &6$%.2f&f) -> &5%s&f", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getToPlayer());
                     }
                     break;
                 case EXCHANGE:
-                    msg = String.format("[&6E&f][%s] %.8f %s (&b%d&f %s&f - $%.2f) -> %.8f %s", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getAmountOfNewCrypto(), t.getToCurrency());
+                    msg = String.format("[&6E&f][%s] &6%.8f %s&f (&b%d %s&f - &6$%.2f&f) -> &6%.8f %s&f", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getAmountOfNewCrypto(), t.getToCurrency());
                     break;
                 case ADMIN_ADD:
-                    msg = String.format("[&2+&f][%s] %.8f %s (&b%d&f %s&f - $%.2f) by %s", date, t.getAmountOfCrypto(), t.getToCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getExecutorName());
+                    msg = String.format("[&2+&f][%s] &6%.8f %s&f (&b%d %s&f - &6$%.2f&f) by &5%s&f", date, t.getAmountOfCrypto(), t.getToCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getExecutorName());
                     break;
                 case ADMIN_REMOVE:
-                    msg = String.format("[&4-&f][%s] %.8f %s (&b%d&f %s&f - $%.2f) by %s", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getExecutorName());
+                    msg = String.format("[&4-&f][%s] &6%.8f %s&f (&b%d %s&f - &6$%.2f&f) by &5%s&f", date, t.getAmountOfCrypto(), t.getFromCurrency(), t.getAmountOfDiamonds(), CryptoMarket.resourceManager.getResource("DiamondOrS"), t.getAmountOfCrypto() * t.getCryptoPriceInUSD(), t.getExecutorName());
                     break;
             }
             sb.append(ChatColor.translateAlternateColorCodes('&', msg + "\n"));

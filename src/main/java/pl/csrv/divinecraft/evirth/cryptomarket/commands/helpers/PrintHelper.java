@@ -3,6 +3,10 @@ package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.helpers;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import org.bukkit.ChatColor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class PrintHelper {
     public static String[] getPage(String[] messages, int page, int linesOnOnePage) throws IllegalArgumentException {
         StringBuilder sb = new StringBuilder();
@@ -17,20 +21,19 @@ public final class PrintHelper {
             throw new IllegalArgumentException(CryptoMarket.resourceManager.getResource("PageNotFound"));
         }
 
-        messages[0] = messages[0].replace("(##/##)", String.format("(%d/%d)", page, maxPages));
-        sb.append(messages[0]).append("\n");
-        int start = linesOnOnePage * (page - 1) == 0
-                ? 1
-                : linesOnOnePage * (page - 1);
+        sb.append(messages[0].replace("(##/##)", String.format("(%d/%d)", page, maxPages))).append("\n");
+        List<String> list = new ArrayList<>(Arrays.asList(messages));
+        list.remove(0);
+        int start = linesOnOnePage * (page - 1);
 
-        for (int i = start; i < messages.length && i < start + linesOnOnePage; i++) {
-            sb.append(messages[i]).append("\n");
+        for (int i = start; i < list.size() && i < start + linesOnOnePage; i++) {
+            sb.append(list.get(i)).append("\n");
         }
         sb.append(ChatColor.translateAlternateColorCodes('&', "&6----------------------------------------"));
         return sb.toString().split("\n");
     }
 
     public static String[] getPage(String[] messages, int page) {
-        return getPage(messages, page, 7);
+        return getPage(messages, page, 5);
     }
 }

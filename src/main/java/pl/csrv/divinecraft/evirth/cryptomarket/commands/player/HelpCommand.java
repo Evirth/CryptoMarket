@@ -47,7 +47,7 @@ public class HelpCommand implements ICommand {
                 for (Command c : CommandExecutorImpl.availableCommands) {
                     sb.append(String.format("/cm %s - %s\n", c.getName(), c.getDescription()));
                 }
-                commandSender.sendMessage(PrintHelper.getPage(sb.toString().split("\n"), page));
+                commandSender.sendMessage(PrintHelper.getPage(sb.toString().split("\n"), page, 7));
             } else {
                 boolean found = false;
                 for (Command c : CommandExecutorImpl.availableCommands) {

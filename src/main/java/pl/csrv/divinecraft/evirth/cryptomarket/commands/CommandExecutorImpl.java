@@ -21,8 +21,7 @@ public class CommandExecutorImpl implements CommandExecutor {
                 new Command("stats", CryptoMarket.resourceManager.getResource("StatsCommandDescription"), "/cm stats"),
                 new Command("history", CryptoMarket.resourceManager.getResource("HistoryCommandDescription"), "/cm history [<page>]"),
                 new Command("add", CryptoMarket.resourceManager.getResource("AddCommandDescription"), "/cm add <player> <amount>[d] <crypto>"),
-                new Command("remove", CryptoMarket.resourceManager.getResource("RemoveCommandDescription"), "/cm remove <player> <amount>[d] <crypto>"),
-                new Command("check", CryptoMarket.resourceManager.getResource("CheckCommandDescription"), "/cm check <player>")
+                new Command("remove", CryptoMarket.resourceManager.getResource("RemoveCommandDescription"), "/cm remove <player> <amount>[d] <crypto>")
         };
     }
 
