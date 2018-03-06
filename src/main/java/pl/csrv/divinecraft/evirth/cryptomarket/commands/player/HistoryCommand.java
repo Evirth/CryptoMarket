@@ -66,7 +66,7 @@ public class HistoryCommand implements ICommand {
                 p.printHistory(page);
             }
         } catch (IllegalArgumentException e) {
-            commandSender.sendMessage(CryptoMarket.resourceManager.getResource("PageNotFound"));
+            commandSender.sendMessage(e.getMessage());
         }
         catch (Exception e) {
             commandSender.sendMessage(String.format(CryptoMarket.resourceManager.getResource("CouldNotGetPlayerHistory"), strings[1]));
