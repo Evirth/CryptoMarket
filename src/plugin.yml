@@ -2,7 +2,7 @@ name: CryptoMarket
 version: 0.8-dev
 description: Cryptocurrency market simulator
 author: Evirth
-main: pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket
+main: CryptoMarket
 commands:
   cryptomarket:
     description: Type '/cryptomarket help' to get more information.
