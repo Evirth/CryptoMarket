@@ -3,6 +3,7 @@ package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.CoinMarketCap;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models.CoinMarket;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
@@ -24,12 +25,12 @@ public class PriceCommand implements ICommand {
                 List<CoinMarket> list = CoinMarketCap.ticker(10);
                 if (list != null) {
                     for (CoinMarket coin : list) {
-                        sb.append(String.format("#%s. %s (%s) - %.6f USD\n", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD()));
+                        sb.append(ChatColor.translateAlternateColorCodes('&', String.format("#%s. &6%s&f (&6%s&f) - &6$%.6f&f\n", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD())));
                     }
                 }
             } else {
                 CoinMarket coin = CoinMarketCap.ticker(strings[1]);
-                sb.append(String.format("#%s. %s (%s) - %.6f USD", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD()));
+                sb.append(ChatColor.translateAlternateColorCodes('&', String.format("#%s. &6%s&f (&6%s&f) - &6$%.6f&f", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD())));
             }
         } catch (Exception e) {
             sb.append(CryptoMarket.resourceManager.getResource("CouldNotGetInfoAboutCrypto"));

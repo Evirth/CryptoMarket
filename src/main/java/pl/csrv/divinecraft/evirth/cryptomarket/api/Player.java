@@ -28,6 +28,7 @@ public class Player {
 
     /**
      * Creates an instance of a Player.
+     *
      * @param name Player's name.
      */
     public Player(String name) {
@@ -39,6 +40,7 @@ public class Player {
 
     /**
      * Withdraws a certain amount of crypto from the player's balance.
+     *
      * @param amount Amount of crypto to withdraw (in Diamonds).
      * @param crypto Name of crypto.
      */
@@ -137,8 +139,9 @@ public class Player {
 
     /**
      * Deposits some amount of Diamonds as crypto to the player's balance.
+     *
      * @param amountOfDiamonds Amount of Diamonds to deposit.
-     * @param crypto Name of crypto.
+     * @param crypto           Name of crypto.
      */
     public void deposit(int amountOfDiamonds, String crypto) {
         try {
@@ -184,9 +187,10 @@ public class Player {
 
     /**
      * Exchanges some amount of crypto to another one.
+     *
      * @param fromCrypto Name of old crypto.
-     * @param amount Amount of old crypto.
-     * @param toCrypto Name of new crypto.
+     * @param amount     Amount of old crypto.
+     * @param toCrypto   Name of new crypto.
      */
     public void exchange(String fromCrypto, double amount, String toCrypto) {
         try {
@@ -243,8 +247,9 @@ public class Player {
 
     /**
      * Transfers some amount of crypto from the first Player to the second one.
-     * @param crypto Name of crypto.
-     * @param amount Amount of crypto.
+     *
+     * @param crypto   Name of crypto.
+     * @param amount   Amount of crypto.
      * @param toPlayer The second Player's name.
      */
     public void transfer(String crypto, String amount, String toPlayer) {
@@ -336,6 +341,7 @@ public class Player {
 
     /**
      * Gets a message which presents Player's statistics.
+     *
      * @return The Player's statistics.
      */
     public String[] checkStats() {
@@ -365,6 +371,7 @@ public class Player {
 
     /**
      * Gets a message which presents Player's balance.
+     *
      * @return The Player's balance.
      */
     public String[] checkBalance() {
@@ -381,6 +388,7 @@ public class Player {
 
     /**
      * Gets a message which presents Player's transaction history.
+     *
      * @return The Player's transaction history.
      */
     public String[] checkHistory() {
@@ -389,6 +397,7 @@ public class Player {
 
     /**
      * Sends a message to the Player which presents his transaction history.
+     *
      * @param page The page of transaction history book.
      */
     public void printHistory(int page) {
@@ -399,8 +408,9 @@ public class Player {
 
     /**
      * Adds balance to the Player's account.
-     * @param crypto Name of crypto.
-     * @param amount Amount of crypto (if ends with 'D'/'d' means it's in Diamonds).
+     *
+     * @param crypto       Name of crypto.
+     * @param amount       Amount of crypto (if ends with 'D'/'d' means it's in Diamonds).
      * @param executorName The command executor name.
      * @throws IllegalArgumentException
      */
@@ -422,7 +432,11 @@ public class Player {
         }
 
         this.changeBalance(coin, amountOfCrypto);
-        this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("AdminSentYouCrypto"), amountOfCrypto, coin.getSymbol(), amountOfCrypto * coin.getPriceUSD(), amountOfDiamonds));
+
+        OfflinePlayer o = Arrays.stream(Bukkit.getOfflinePlayers()).filter(f -> f.getName().equalsIgnoreCase(this.name)).findFirst().orElse(null);
+        if (o != null && o.isOnline()) {
+            this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("AdminSentYouCrypto"), amountOfCrypto, coin.getSymbol(), amountOfCrypto * coin.getPriceUSD(), amountOfDiamonds));
+        }
 
         Transaction t = new Transaction(
                 executorName,
@@ -445,8 +459,9 @@ public class Player {
 
     /**
      * Removes balance from the Player's account.
-     * @param crypto Name of crypto.
-     * @param amount Amount of crypto (if ends with 'D'/'d' means it's in Diamonds).
+     *
+     * @param crypto       Name of crypto.
+     * @param amount       Amount of crypto (if ends with 'D'/'d' means it's in Diamonds).
      * @param executorName The command executor name.
      * @throws IllegalArgumentException
      */
@@ -480,7 +495,11 @@ public class Player {
         }
 
         this.changeBalance(coin, -amountOfCrypto);
-        this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("AdminTookYourCrypto"), amountOfCrypto, coin.getSymbol(), amountOfCrypto * coin.getPriceUSD(), amountOfDiamonds));
+
+        OfflinePlayer o = Arrays.stream(Bukkit.getOfflinePlayers()).filter(f -> f.getName().equalsIgnoreCase(this.name)).findFirst().orElse(null);
+        if (o != null && o.isOnline()) {
+            this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("AdminTookYourCrypto"), amountOfCrypto, coin.getSymbol(), amountOfCrypto * coin.getPriceUSD(), amountOfDiamonds));
+        }
 
         Transaction t = new Transaction(
                 executorName,
@@ -505,7 +524,8 @@ public class Player {
 
     /**
      * Changes the Player's balance.
-     * @param coin The coin.
+     *
+     * @param coin           The coin.
      * @param amountOfCrypto Amount of crypto.
      * @throws IllegalArgumentException
      */
