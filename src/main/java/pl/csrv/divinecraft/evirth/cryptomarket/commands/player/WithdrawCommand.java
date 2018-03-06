@@ -1,11 +1,11 @@
-package main.java.cryptomarket.commands.player;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
-import main.java.cryptomarket.CryptoMarket;
-import main.java.cryptomarket.api.Player;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
-import main.java.cryptomarket.commands.ICommand;
-import main.java.cryptomarket.commands.Permissions;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 
 public class WithdrawCommand implements ICommand {
 

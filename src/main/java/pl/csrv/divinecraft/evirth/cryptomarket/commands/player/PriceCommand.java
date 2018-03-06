@@ -1,11 +1,11 @@
-package main.java.cryptomarket.commands.player;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
-import main.java.cryptomarket.CryptoMarket;
-import main.java.cryptomarket.coinmarketcap.CoinMarketCap;
-import main.java.cryptomarket.coinmarketcap.models.CoinMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.CoinMarketCap;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models.CoinMarket;
 import org.bukkit.command.CommandSender;
-import main.java.cryptomarket.commands.ICommand;
-import main.java.cryptomarket.commands.Permissions;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 
 import java.util.List;
 

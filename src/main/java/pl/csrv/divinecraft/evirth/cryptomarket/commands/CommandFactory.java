@@ -1,10 +1,7 @@
-package main.java.cryptomarket.commands;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands;
 
-import main.java.cryptomarket.commands.admin.AddCommand;
-import main.java.cryptomarket.commands.admin.RemoveCommand;
-import main.java.cryptomarket.commands.player.*;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.admin.*;
-import pl.csrv.divinecraft.evirth.cryptomarket.commands.player.*;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.admin.*;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.player.*;
 
 public final class CommandFactory {
     private CommandFactory() {

@@ -1,4 +1,4 @@
-package main.java.cryptomarket.commands.models;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.models;
 
 public class Command {
     private String name;

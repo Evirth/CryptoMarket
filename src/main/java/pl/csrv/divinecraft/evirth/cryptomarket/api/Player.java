@@ -1,20 +1,20 @@
-package main.java.cryptomarket.api;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.api;
 
-import main.java.cryptomarket.enums.TransactionType;
-import main.java.cryptomarket.helpers.CoinHelper;
-import main.java.cryptomarket.models.Coin;
-import main.java.cryptomarket.models.PlayerAccount;
-import main.java.cryptomarket.models.Transaction;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.helpers.CoinHelper;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.models.Coin;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.models.PlayerAccount;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.models.Transaction;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
-import main.java.cryptomarket.CryptoMarket;
-import main.java.cryptomarket.coinmarketcap.CoinMarketCap;
-import main.java.cryptomarket.coinmarketcap.models.CoinMarket;
-import main.java.cryptomarket.commands.helpers.PrintHelper;
-import main.java.cryptomarket.helpers.XmlSerializationHelper;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.CoinMarketCap;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models.CoinMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.helpers.PrintHelper;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.helpers.XmlSerializationHelper;
 
 import java.io.File;
 import java.nio.file.Paths;

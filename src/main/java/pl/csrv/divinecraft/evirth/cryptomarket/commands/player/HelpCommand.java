@@ -1,11 +1,11 @@
-package main.java.cryptomarket.commands.player;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.player;
 
-import main.java.cryptomarket.commands.CommandExecutorImpl;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutorImpl;
 import org.bukkit.command.CommandSender;
-import main.java.cryptomarket.CryptoMarket;
-import main.java.cryptomarket.commands.ICommand;
-import main.java.cryptomarket.commands.Permissions;
-import main.java.cryptomarket.commands.models.Command;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
 
 public class HelpCommand implements ICommand {
 

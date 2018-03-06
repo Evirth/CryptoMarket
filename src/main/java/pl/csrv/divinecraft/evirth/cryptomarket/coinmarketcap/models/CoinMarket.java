@@ -1,4 +1,4 @@
-package main.java.cryptomarket.coinmarketcap.models;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

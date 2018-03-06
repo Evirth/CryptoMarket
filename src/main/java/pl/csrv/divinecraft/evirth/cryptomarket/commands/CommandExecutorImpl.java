@@ -1,9 +1,9 @@
-package main.java.cryptomarket.commands;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import main.java.cryptomarket.CryptoMarket;
-import main.java.cryptomarket.commands.models.Command;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Command;
 
 public class CommandExecutorImpl implements CommandExecutor {
     public static Command[] availableCommands;

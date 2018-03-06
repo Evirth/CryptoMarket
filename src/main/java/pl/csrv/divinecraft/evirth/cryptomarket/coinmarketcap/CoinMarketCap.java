@@ -1,9 +1,9 @@
-package main.java.cryptomarket.coinmarketcap;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import main.java.cryptomarket.coinmarketcap.models.CoinMarket;
-import main.java.cryptomarket.coinmarketcap.models.Global;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models.CoinMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models.Global;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;

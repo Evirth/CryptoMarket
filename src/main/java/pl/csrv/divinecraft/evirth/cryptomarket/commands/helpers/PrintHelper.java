@@ -1,4 +1,4 @@
-package main.java.cryptomarket.commands.helpers;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.helpers;
 
 import org.bukkit.ChatColor;
 

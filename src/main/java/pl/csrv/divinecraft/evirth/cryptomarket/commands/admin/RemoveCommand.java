@@ -1,12 +1,12 @@
-package main.java.cryptomarket.commands.admin;
+package main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.admin;
 
-import main.java.cryptomarket.CryptoMarket;
-import main.java.cryptomarket.api.Player;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.api.Player;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import main.java.cryptomarket.commands.ICommand;
-import main.java.cryptomarket.commands.Permissions;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.ICommand;
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 
 import java.util.Arrays;
 
