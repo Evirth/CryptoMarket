@@ -3,6 +3,7 @@ package main.java.pl.csrv.divinecraft.evirth.cryptomarket.models;
 public class Config {
     private int price;
     private String lang;
+    private double fee;
 
     public int getPrice() {
         return this.price;
@@ -20,13 +21,11 @@ public class Config {
         this.lang = lang;
     }
 
-    public double getTax() {
-        return this.tax;
+    public double getFee() {
+        return this.fee;
     }
 
-    public void setTax(double tax) {
-        this.tax = tax;
+    public void setFee(double fee) {
+        this.fee = fee;
     }
-
-    private double tax;
 }

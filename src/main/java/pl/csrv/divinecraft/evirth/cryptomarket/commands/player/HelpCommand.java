@@ -41,7 +41,7 @@ public class HelpCommand implements ICommand {
             StringBuilder sb = new StringBuilder();
 
             if (isSecondParameterPageNumber) {
-                String helpMsg = String.format(CryptoMarket.resourceManager.getResource("HelpHeader") + "\n", CryptoMarket.config.getPrice(), CryptoMarket.config.getTax() * 100);
+                String helpMsg = String.format(CryptoMarket.resourceManager.getResource("HelpHeader") + "\n", CryptoMarket.config.getPrice(), CryptoMarket.config.getFee() * 100);
                 sb.append(ChatColor.translateAlternateColorCodes('&', "&6----- CryptoMarket ----- Help (##/##) -----\n"));
                 sb.append(helpMsg);
                 for (Command c : CommandExecutorImpl.availableCommands) {

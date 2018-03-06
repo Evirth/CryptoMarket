@@ -191,7 +191,7 @@ public class Player {
             CoinMarket fromCoin = CoinMarketCap.ticker(fromC.getId());
             int amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(fromCoin.getPriceUSD(), amount);
             this.changeBalance(fromCoin, -amount);
-            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount - (amount * CryptoMarket.config.getTax()), toCoin.getPriceUSD());
+            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount - (amount * CryptoMarket.config.getFee()), toCoin.getPriceUSD());
             this.changeBalance(toCoin, amountOfNewCoin);
             this.printBalance();
             this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("Exchange"), amount, fromCoin.getSymbol(), fromCoin.getPriceUSD() * amount, amountOfDiamonds, amountOfNewCoin, toCoin.getSymbol()));
@@ -209,7 +209,7 @@ public class Player {
                     null,
                     amountOfNewCoin,
                     toCoin.getPriceUSD(),
-                    CryptoMarket.config.getTax() * 100);
+                    CryptoMarket.config.getFee() * 100);
             this.account.getTransactions().add(0, t);
 
             this.update();
@@ -266,7 +266,7 @@ public class Player {
             this.changeBalance(coin, -amountOfCrypto);
             this.printBalance();
 
-            double amountOfNewCoin = amountOfCrypto - (amountOfCrypto * CryptoMarket.config.getTax());
+            double amountOfNewCoin = amountOfCrypto - (amountOfCrypto * CryptoMarket.config.getFee());
             int amountOfNewDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfNewCoin);
             p2.changeBalance(coin, amountOfNewCoin);
             if (o.isOnline()) {
@@ -287,7 +287,7 @@ public class Player {
                     p2.name,
                     amountOfNewCoin,
                     coin.getPriceUSD(),
-                    CryptoMarket.config.getTax() * 100);
+                    CryptoMarket.config.getFee() * 100);
             this.account.getTransactions().add(0, t);
             p2.account.getTransactions().add(0, t);
 

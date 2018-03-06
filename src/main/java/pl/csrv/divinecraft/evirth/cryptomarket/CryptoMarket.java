@@ -40,7 +40,7 @@ public class CryptoMarket extends JavaPlugin {
         config = new Config();
         config.setPrice(fc.getInt("price"));
         config.setLang(fc.getString("lang"));
-        config.setTax(fc.getDouble("tax") / 100);
+        config.setFee(fc.getDouble("tax") / 100);
     }
 
     private void createFolders() {
