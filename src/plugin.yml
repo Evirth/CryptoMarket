@@ -3,6 +3,7 @@ version: 1.0
 description: Cryptocurrency market simulator
 author: Evirth
 main: main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket
+
 commands:
   cryptomarket:
     description: Type '/cryptomarket help' to get more information.

@@ -1,0 +1,20 @@
+########################################################################
+#                                                                      #
+#                           CryptoMarket v1.0                          #
+#     This is cryptocurrency market simulator based on real prices     #
+#        The prices come live from https://www.CoinMarketCap.com       #
+#                                                                      #
+#                                                Author: Bartosz Hliwa #
+#                                            https://github.com/Evirth #
+########################################################################
+
+# The value of one Diamond in USD.
+price: 100
+
+# The language of messages.
+# You can create Your own by editing 'messages_en.yml' in Resources dir
+# and saving it with name i.e. 'messages_pl.yml' - lang: pl
+lang: en
+
+# The Transaction Fee for transfers and exchanges as a percentage
+fee: 0.1

@@ -3,6 +3,7 @@ package main.java.pl.csrv.divinecraft.evirth.cryptomarket;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.CommandExecutorImpl;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.models.Config;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.resources.ResourceManager;
 
@@ -30,17 +31,13 @@ public class CryptoMarket extends JavaPlugin {
     }
 
     private void initializeConfig() {
+        this.saveDefaultConfig();
         FileConfiguration fc = this.getConfig();
-        fc.addDefault("price", 10);
-        fc.addDefault("lang", "en");
-        fc.addDefault("tax", 0.1);
-        fc.options().copyDefaults(true);
-        this.saveConfig();
 
         config = new Config();
         config.setPrice(fc.getInt("price"));
         config.setLang(fc.getString("lang"));
-        config.setFee(fc.getDouble("tax") / 100);
+        config.setFee(fc.getDouble("fee") / 100);
     }
 
     private void createFolders() {
