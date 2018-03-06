@@ -86,6 +86,10 @@ public class Player {
             for (Map.Entry<String, Coin> m : this.account.getBalance().entrySet()) {
                 CoinMarket coin = CoinMarketCap.ticker(m.getValue().getId());
                 int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), m.getValue().getAmount());
+                if (diamondsFromBalance == 0) {
+                    continue;
+                }
+
                 double amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(diamondsFromBalance, coin.getPriceUSD());
                 this.changeBalance(coin, -amountOfCrypto);
                 d += diamondsFromBalance;

@@ -18,37 +18,37 @@ public class CoinMarket {
     private Integer rank;
 
     @JsonProperty("price_usd")
-    private Double price_usd;
+    private Double priceUSD;
 
     @JsonProperty("price_btc")
-    private Double price_btc;
+    private Double priceBTC;
 
     @JsonProperty("24h_volume_usd")
-    private Double daily_volume_usd;
+    private Double dailyVolumeUSD;
 
     @JsonProperty("market_cap_usd")
-    private Double market_cap_usd;
+    private Double marketCapUSD;
 
     @JsonProperty("available_supply")
-    private Double available_supply;
+    private Double availableSupply;
 
     @JsonProperty("total_supply")
-    private Double total_supply;
+    private Double totalSupply;
 
     @JsonProperty("max_supply")
-    private Double max_supply;
+    private Double maxSupply;
 
     @JsonProperty("percent_change_1h")
-    private Double percent_change_1h;
+    private Double percentChange1h;
 
     @JsonProperty("percent_change_24h")
-    private Double percent_change_24h;
+    private Double percentChange24h;
 
     @JsonProperty("percent_change_7d")
-    private Double percent_change_7d;
+    private Double percentChange7d;
 
     @JsonProperty("last_updated")
-    private Timestamp last_updated;
+    private Timestamp lastUpdated;
 
     public String getId() {
         return this.id;
@@ -67,46 +67,46 @@ public class CoinMarket {
     }
 
     public Double getPriceUSD() {
-        return this.price_usd;
+        return this.priceUSD;
     }
 
     public Double getPriceBTC() {
-        return this.price_btc;
+        return this.priceBTC;
     }
 
     public Double getDailyVolumeUSD() {
-        return this.daily_volume_usd;
+        return this.dailyVolumeUSD;
     }
 
     public Double getMarketCapUSD() {
-        return this.market_cap_usd;
+        return this.marketCapUSD;
     }
 
     public Double getAvailableSupply() {
-        return this.available_supply;
+        return this.availableSupply;
     }
 
     public Double getTotalSupply() {
-        return this.total_supply;
+        return this.totalSupply;
     }
 
     public Double getMaxSupply() {
-        return this.max_supply;
+        return this.maxSupply;
     }
 
     public Double getPercentChange1h() {
-        return this.percent_change_1h;
+        return this.percentChange1h;
     }
 
     public Double getPercentChange24h() {
-        return this.percent_change_24h;
+        return this.percentChange24h;
     }
 
     public Double getPercentChange7d() {
-        return this.percent_change_7d;
+        return this.percentChange7d;
     }
 
     public Timestamp getLastUpdated() {
-        return this.last_updated;
+        return this.lastUpdated;
     }
 }
