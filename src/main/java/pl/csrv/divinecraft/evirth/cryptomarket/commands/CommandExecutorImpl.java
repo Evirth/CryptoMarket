@@ -10,16 +10,16 @@ public class CommandExecutorImpl implements CommandExecutor {
 
     public CommandExecutorImpl() {
         availableCommands = new Command[]{
-                new Command("help", CryptoMarket.resourceManager.getResource("HelpCommandDescription"), "/cm help [page]"),
+                new Command("help", CryptoMarket.resourceManager.getResource("HelpCommandDescription"), "/cm help [page/command]"),
                 new Command("balance", CryptoMarket.resourceManager.getResource("BalanceCommandDescription")),
                 new Command("withdraw", CryptoMarket.resourceManager.getResource("WithdrawCommandDescription"), "/cm withdraw <amount> <crypto>"),
                 new Command("deposit", CryptoMarket.resourceManager.getResource("DepositCommandDescription"), "/cm deposit <amount> <crypto>"),
-                new Command("transfer", CryptoMarket.resourceManager.getResource("TransferCommandDescription"), "/cm transfer <crypto> <amount> <toPlayer>"),
+                new Command("transfer", CryptoMarket.resourceManager.getResource("TransferCommandDescription"), "/cm transfer <crypto> <amount>[d] <toPlayer>"),
                 new Command("exchange", CryptoMarket.resourceManager.getResource("ExchangeCommandDescription"), "/cm exchange <fromCrypto> <amount>[d] <toCrypto>"),
-                new Command("price", CryptoMarket.resourceManager.getResource("PriceCommandDescription"), "/cm price [<crypto>]"),
+                new Command("price", CryptoMarket.resourceManager.getResource("PriceCommandDescription"), "/cm price [crypto]"),
                 new Command("global", CryptoMarket.resourceManager.getResource("GlobalCommandDescription"), "/cm global"),
-                new Command("stats", CryptoMarket.resourceManager.getResource("StatsCommandDescription"), "/cm stats"),
-                new Command("history", CryptoMarket.resourceManager.getResource("HistoryCommandDescription"), "/cm history [<page>]"),
+                new Command("stats", CryptoMarket.resourceManager.getResource("StatsCommandDescription"), "/cm stats [player]"),
+                new Command("history", CryptoMarket.resourceManager.getResource("HistoryCommandDescription"), "/cm history [page/player]"),
                 new Command("add", CryptoMarket.resourceManager.getResource("AddCommandDescription"), "/cm add <player> <amount>[d] <crypto>"),
                 new Command("remove", CryptoMarket.resourceManager.getResource("RemoveCommandDescription"), "/cm remove <player> <amount>[d] <crypto>")
         };
@@ -32,7 +32,7 @@ public class CommandExecutorImpl implements CommandExecutor {
             cmd = strings[0];
         }
 
-        ICommand c = CommandFactory.create(cmd);
+        ICommand c = CommandFactory.create(cmd.toLowerCase());
         return c.execute(commandSender, strings);
     }
 }

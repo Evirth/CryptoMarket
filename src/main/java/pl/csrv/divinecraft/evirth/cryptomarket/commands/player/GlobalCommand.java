@@ -8,7 +8,10 @@ import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GlobalCommand implements ICommand {
 
@@ -22,7 +25,8 @@ public class GlobalCommand implements ICommand {
         try {
             StringBuilder sb = new StringBuilder();
             Global global = CoinMarketCap.global();
-            String date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(global.getLastUpdated());
+            Timestamp timestamp = new Timestamp(global.getLastUpdated() * 1000L);
+            String date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(timestamp);
             sb.append(ChatColor.translateAlternateColorCodes('&', "&6-------------- Global Data -------------\n"));
             sb.append(String.format("Market Cap: $%,.0f\n", global.getTotalMarketCapUSD()));
             sb.append(String.format("24h Volume: $%,.0f\n", global.getTotal24hVolumeUSD()));

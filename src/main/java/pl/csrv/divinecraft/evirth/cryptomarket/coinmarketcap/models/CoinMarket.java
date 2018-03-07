@@ -48,7 +48,7 @@ public class CoinMarket {
     private Double percentChange7d;
 
     @JsonProperty("last_updated")
-    private Timestamp lastUpdated;
+    private Long lastUpdated;
 
     public String getId() {
         return this.id;
@@ -62,7 +62,7 @@ public class CoinMarket {
         return this.symbol;
     }
 
-    public int getRank() {
+    public Integer getRank() {
         return this.rank;
     }
 
@@ -106,7 +106,7 @@ public class CoinMarket {
         return this.percentChange7d;
     }
 
-    public Timestamp getLastUpdated() {
+    public Long getLastUpdated() {
         return this.lastUpdated;
     }
 }

@@ -24,7 +24,7 @@ public class Global {
     private Integer activeMarkets;
 
     @JsonProperty("last_updated")
-    private Timestamp lastUpdated;
+    private Long lastUpdated;
 
     public Double getTotalMarketCapUSD() {
         return this.totalMarketCapUSD;
@@ -50,7 +50,7 @@ public class Global {
         return this.activeMarkets;
     }
 
-    public Timestamp getLastUpdated() {
+    public Long getLastUpdated() {
         return this.lastUpdated;
     }
 }
