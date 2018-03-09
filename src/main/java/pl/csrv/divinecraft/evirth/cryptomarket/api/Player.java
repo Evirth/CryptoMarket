@@ -97,7 +97,8 @@ public class Player {
             }
 
             int d = 0;
-            for (Map.Entry<String, Coin> m : this.account.getBalance().entrySet()) {
+            Map<String, Coin> b = new TreeMap<>(this.account.getBalance());
+            for (Map.Entry<String, Coin> m : b.entrySet()) {
                 CoinMarket coin = CoinMarketCap.ticker(m.getValue().getId());
                 int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), m.getValue().getAmount());
                 if (diamondsFromBalance == 0) {
