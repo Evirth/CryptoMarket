@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="jackson-core-2.9.4">
+  <library name="com.fasterxml.jackson.core:jackson-core:2.9.4" type="repository">
+    <properties maven-id="com.fasterxml.jackson.core:jackson-core:2.9.4" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.9.4.jar!/" />
     </CLASSES>
