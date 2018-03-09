@@ -192,20 +192,10 @@ public class Player {
      * @param amount     Amount of old crypto.
      * @param toCrypto   Name of new crypto.
      */
-    public void exchange(String fromCrypto, double amount, String toCrypto) {
+    public void exchange(String fromCrypto, String amount, String toCrypto) {
         try {
             if (!this.account.getBalance().containsKey(fromCrypto)) {
                 this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveCoin"), fromCrypto));
-                return;
-            }
-
-            Coin fromC = this.account.getBalance().get(fromCrypto);
-            if (amount == Double.POSITIVE_INFINITY) {
-                amount = fromC.getAmount();
-            }
-
-            if (fromC.getAmount() < amount) {
-                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveThatManyCoins"), fromC.getName()));
                 return;
             }
 
@@ -215,13 +205,34 @@ public class Player {
                 return;
             }
 
+            Coin fromC = this.account.getBalance().get(fromCrypto);
             CoinMarket fromCoin = CoinMarketCap.ticker(fromC.getId());
-            int amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(fromCoin.getPriceUSD(), amount);
-            this.changeBalance(fromCoin, -amount);
-            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amount - (amount * CryptoMarket.config.getFee()), toCoin.getPriceUSD());
+
+            double amountOfCrypto;
+            int amountOfDiamonds;
+
+            if (amount.equalsIgnoreCase("all")) {
+                amountOfCrypto = this.account.getBalance().get(fromC.getName()).getAmount();
+                amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(fromCoin.getPriceUSD(), amountOfCrypto);
+            } else if (amount.endsWith("D") || amount.endsWith("d")) {
+                amountOfDiamonds = Math.abs(Integer.parseInt(amount.substring(0, amount.length() - 1))); // Remove 'D' or 'd' char and parse to int
+                amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(amountOfDiamonds, fromCoin.getPriceUSD());
+            } else {
+                amountOfCrypto = Double.parseDouble(amount);
+                amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(fromCoin.getPriceUSD(), amountOfCrypto);
+            }
+
+            if (fromC.getAmount() < amountOfCrypto) {
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveThatManyCoins"), fromC.getName()));
+                return;
+            }
+
+
+            this.changeBalance(fromCoin, -amountOfCrypto);
+            double amountOfNewCoin = CoinHelper.calculateAmountOfNewCrypto(fromCoin.getPriceUSD(), amountOfCrypto - (amountOfCrypto * CryptoMarket.config.getFee()), toCoin.getPriceUSD());
             this.changeBalance(toCoin, amountOfNewCoin);
             this.printBalance();
-            this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("Exchange"), amount, fromCoin.getSymbol(), fromCoin.getPriceUSD() * amount, amountOfDiamonds, amountOfNewCoin, toCoin.getSymbol()));
+            this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("Exchange"), amountOfCrypto, fromCoin.getSymbol(), fromCoin.getPriceUSD() * amountOfCrypto, amountOfDiamonds, amountOfNewCoin, toCoin.getSymbol()));
 
             Transaction t = new Transaction(
                     this.name,
@@ -229,7 +240,7 @@ public class Player {
                     fromCoin.getName(),
                     toCoin.getName(),
                     TransactionType.EXCHANGE,
-                    amount,
+                    amountOfCrypto,
                     amountOfDiamonds,
                     fromCoin.getPriceUSD(),
                     null,

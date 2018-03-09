@@ -24,8 +24,8 @@ public class ExchangeCommand implements ICommand {
 
             try {
                 Player p = new Player(commandSender.getName());
-                double amount = strings[2].equalsIgnoreCase("all") ? Double.POSITIVE_INFINITY : Double.parseDouble(strings[2].replace(",", "."));
-                p.exchange(strings[1], amount, strings[3]);
+                String inputAmount = strings[2].replace(",", ".");
+                p.exchange(strings[1], inputAmount, strings[3]);
             } catch (Exception e) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("CouldNotCompleteThisTransaction"));
             }
