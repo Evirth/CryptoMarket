@@ -12,11 +12,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://D:/Programy/VirtualBox/Shared/spigot 1.12.2/spigot-1.12.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spigot-1.12.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://D:/Programy/VirtualBox/Shared/spigot 1.12.2/spigot-1.12.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spigot-1.12.2.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
