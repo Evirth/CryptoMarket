@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models.CoinMarket;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.coinmarketcap.models.Global;
 
-import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,8 +17,8 @@ public class CoinMarketCap {
 
     public static List<CoinMarket> ticker() {
         try {
-            UriBuilder uriBuilder = UriBuilder.fromPath(baseUrl).path("ticker");
-            String response = getResponse(uriBuilder.build().toURL());
+            URL url = new URL(baseUrl + "ticker/");
+            String response = getResponse(url);
             return new ObjectMapper().readValue(response, new TypeReference<List<CoinMarket>>() {});
         } catch (Exception e) {
             return null;
@@ -28,8 +27,8 @@ public class CoinMarketCap {
 
     public static List<CoinMarket> ticker(int limit) {
         try {
-            UriBuilder uriBuilder = UriBuilder.fromPath(baseUrl).path("ticker").queryParam("limit", limit);
-            String response = getResponse(uriBuilder.build().toURL());
+            URL url = new URL(baseUrl + "ticker/?limit=" + limit);
+            String response = getResponse(url);
             return new ObjectMapper().readValue(response, new TypeReference<List<CoinMarket>>() {});
         } catch (Exception e) {
             return null;
@@ -38,8 +37,8 @@ public class CoinMarketCap {
 
     public static CoinMarket ticker(String coinName) {
         try {
-            UriBuilder uriBuilder = UriBuilder.fromPath(baseUrl).path("ticker").path(coinName);
-            String response = getResponse(uriBuilder.build().toURL());
+            URL url = new URL(baseUrl + "ticker/" + coinName);
+            String response = getResponse(url);
             List<CoinMarket> list = new ObjectMapper().readValue(response, new TypeReference<List<CoinMarket>>() {});
             return list.isEmpty() ? null : list.get(0);
         } catch (Exception e) {
@@ -49,8 +48,8 @@ public class CoinMarketCap {
 
     public static Global global() {
         try {
-            UriBuilder uriBuilder = UriBuilder.fromPath(baseUrl).path("global");
-            String response = getResponse(uriBuilder.build().toURL());
+            URL url = new URL(baseUrl + "global/");
+            String response = getResponse(url);
             return new ObjectMapper().readValue(response, Global.class);
         } catch (Exception e) {
             return null;

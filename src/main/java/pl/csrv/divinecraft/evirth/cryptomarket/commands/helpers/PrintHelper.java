@@ -10,7 +10,7 @@ import java.util.List;
 public final class PrintHelper {
     public static String[] getPage(String[] messages, int page, int linesOnOnePage) throws IllegalArgumentException {
         StringBuilder sb = new StringBuilder();
-        int maxPages = (int) Math.ceil((double) messages.length / linesOnOnePage);
+        int maxPages = (int) Math.ceil((double) (messages.length - 1) / linesOnOnePage);
         if (maxPages == 0) {
             maxPages = 1;
         }
