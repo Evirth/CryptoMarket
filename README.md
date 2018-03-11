@@ -7,18 +7,16 @@ The main goal was to create a Minecraft plugin that will teach You to a certain 
 
 Documentation: https://github.com/Evirth/CryptoMarket/wiki/Documentation
 
+https://dev.bukkit.org/projects/cryptomarket</br>
+https://www.spigotmc.org/resources/cryptomarket.54296/
+
 ![](https://i.imgur.com/CqDDmfi.png)
 
 Donate:
 
-<a href="https://www.paypal.me/bhliwa"><img src="https://i.imgur.com/xPQBz6k.png" alt="Donate sliwa007@gmail.com" width="100" height="20" border="0" /></a>
-
-BTC: 1HsB8DDHXUzbttskXYK7MhtyXvMfvoC1fG
-
-ETH: 0xc102e66901c3577955c0eabd7da4d9122f77d34b
-
-LTC: LNC8EGPyVqimfnKHWE7qokYSczYimCz6jJ
-
-LSK: 2853106435730741588L
-
-BTG: GXc4fwQxZ5qmayogkC1xmLFyN69epWHJer
+<a href="https://www.paypal.me/bhliwa"><img src="https://i.imgur.com/xPQBz6k.png" alt="Donate sliwa007@gmail.com" width="100" height="20" border="0" /></a></br>
+BTC: 1HsB8DDHXUzbttskXYK7MhtyXvMfvoC1fG</br>
+ETH: 0xc102e66901c3577955c0eabd7da4d9122f77d34b</br>
+LTC: LNC8EGPyVqimfnKHWE7qokYSczYimCz6jJ</br>
+LSK: 2853106435730741588L</br>
+BTG: GXc4fwQxZ5qmayogkC1xmLFyN69epWHJer</br>
