@@ -73,7 +73,7 @@ public class CryptoMarket extends JavaPlugin {
                 this.getLogger().info(String.format("New version (%s) is available: https://github.com/Evirth/CryptoMarket/releases", g.getVersion()));
             }
         } catch (Exception e) {
-            this.getLogger().warning(e.getMessage());
+            this.getLogger().warning("Could not check for update availability.");
         }
     }
 }
