@@ -46,13 +46,18 @@ public class Player {
      */
     public void withdraw(int amount, String crypto) {
         try {
-            if (!this.account.getBalance().containsKey(crypto)) {
+            CoinMarket coin = CoinMarketCap.ticker(crypto);
+            if (coin == null) {
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("CouldNotFindCoin"), crypto));
+                return;
+            }
+
+            if (!this.account.getBalance().containsKey(coin.getName())) {
                 this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveCoin"), crypto));
                 return;
             }
 
-            CoinMarket coin = CoinMarketCap.ticker(crypto);
-            int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), this.account.getBalance().get(crypto).getAmount());
+            int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), this.account.getBalance().get(coin.getName()).getAmount());
             if (diamondsFromBalance >= amount) {
                 double amountOfCrypto = CoinHelper.calculateAmountOfCryptoFromDiamonds(amount, coin.getPriceUSD());
                 this.changeBalance(coin, -amountOfCrypto);
@@ -195,8 +200,14 @@ public class Player {
      */
     public void exchange(String fromCrypto, String amount, String toCrypto) {
         try {
-            if (!this.account.getBalance().containsKey(fromCrypto)) {
-                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveCoin"), fromCrypto));
+            CoinMarket fromCoin = CoinMarketCap.ticker(fromCrypto);
+            if (fromCoin == null) {
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("CouldNotFindCoin"), toCrypto));
+                return;
+            }
+
+            if (!this.account.getBalance().containsKey(fromCoin.getName())) {
+                this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("DontHaveCoin"), fromCoin.getName()));
                 return;
             }
 
@@ -206,9 +217,8 @@ public class Player {
                 return;
             }
 
-            Coin fromC = this.account.getBalance().get(fromCrypto);
-            CoinMarket fromCoin = CoinMarketCap.ticker(fromC.getId());
 
+            Coin fromC = this.account.getBalance().get(fromCoin.getName());
             double amountOfCrypto;
             int amountOfDiamonds;
 
@@ -484,7 +494,7 @@ public class Player {
         }
 
         if (!this.account.getBalance().containsKey(coin.getName())) {
-            throw new IllegalArgumentException(String.format(CryptoMarket.resourceManager.getResource("PlayerDoesntHaveCoin"), this.name, crypto));
+            throw new IllegalArgumentException(String.format(CryptoMarket.resourceManager.getResource("PlayerDoesntHaveCoin"), this.name, coin.getName()));
         }
 
         int amountOfDiamonds;
@@ -501,7 +511,7 @@ public class Player {
             amountOfDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfCrypto);
         }
 
-        int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), this.account.getBalance().get(crypto).getAmount());
+        int diamondsFromBalance = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), this.account.getBalance().get(coin.getName()).getAmount());
         if (diamondsFromBalance < amountOfDiamonds) {
             throw new IllegalArgumentException(String.format(CryptoMarket.resourceManager.getResource("PlayerDoesntHaveThatManyCoins"), this.name, coin.getName()));
         }
