@@ -40,6 +40,9 @@ public final class CommandFactory {
             case "history":
                 c = new HistoryCommand();
                 break;
+            case "top":
+                c = new TopCommand();
+                break;
             case "add":
                 c = new AddCommand();
                 break;

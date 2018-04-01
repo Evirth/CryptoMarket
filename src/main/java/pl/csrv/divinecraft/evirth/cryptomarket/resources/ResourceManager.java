@@ -43,6 +43,10 @@ public class ResourceManager {
 
                     if (currentFileLines != resourceFileLines) {
                         File fbak = new File(Paths.get(this.resourcePath, file + ".old").toString());
+                        if (fbak.exists()) {
+                            fbak.delete();
+                        }
+
                         if (f.renameTo(fbak)) {
                             this.exportResource(file);
                             this.plugin.getLogger().info(String.format("Resource file '%s' has been updated.", file));

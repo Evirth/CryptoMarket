@@ -1,5 +1,6 @@
 package main.java.pl.csrv.divinecraft.evirth.cryptomarket.api;
 
+import main.java.pl.csrv.divinecraft.evirth.cryptomarket.commands.models.Stats;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.enums.TransactionType;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.helpers.CoinHelper;
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.models.Coin;
@@ -360,6 +361,32 @@ public class Player {
      */
     public void printStats() {
         this.player.sendMessage(this.checkStats());
+    }
+
+    /**
+     * Gets a Stats object which presents Player's statistics.
+     *
+     * @return The Player's statistics as the Stats object.
+     */
+    public Stats getStats() {
+        if (this.account.getBalance().isEmpty()) {
+            return null;
+        }
+
+        List<Transaction> withdrawals = this.account.getTransactions().stream().filter(f -> f.getType() == TransactionType.WITHDRAWAL).collect(Collectors.toList());
+        List<Transaction> deposits = this.account.getTransactions().stream().filter(f -> f.getType() == TransactionType.DEPOSIT).collect(Collectors.toList());
+
+        int wDiamonds = 0;
+        int dDiamonds = 0;
+        for (Transaction t : deposits) {
+            dDiamonds += t.getAmountOfDiamonds();
+        }
+        for (Transaction t : withdrawals) {
+            wDiamonds += t.getAmountOfDiamonds();
+        }
+
+        int result = wDiamonds - dDiamonds;
+        return new Stats(this.name, dDiamonds, wDiamonds, result);
     }
 
     /**

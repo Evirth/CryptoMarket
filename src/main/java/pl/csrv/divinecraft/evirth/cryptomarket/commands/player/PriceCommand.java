@@ -25,12 +25,12 @@ public class PriceCommand implements ICommand {
                 List<CoinMarket> list = CoinMarketCap.ticker(10);
                 if (list != null) {
                     for (CoinMarket coin : list) {
-                        sb.append(ChatColor.translateAlternateColorCodes('&', String.format("#%s. &6%s&f (&6%s&f) - &6$%.6f&f\n", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD())));
+                        sb.append(ChatColor.translateAlternateColorCodes('&', String.format("#%d. &6%s&f (&6%s&f) - &6$%.6f&f\n", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD())));
                     }
                 }
             } else {
                 CoinMarket coin = CoinMarketCap.ticker(strings[1]);
-                sb.append(ChatColor.translateAlternateColorCodes('&', String.format("#%s. &6%s&f (&6%s&f) - &6$%.6f&f", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD())));
+                sb.append(ChatColor.translateAlternateColorCodes('&', String.format("#%d. &6%s&f (&6%s&f) - &6$%.6f&f", coin.getRank(), coin.getName(), coin.getSymbol(), coin.getPriceUSD())));
             }
         } catch (Exception e) {
             sb.append(CryptoMarket.resourceManager.getResource("CouldNotGetInfoAboutCrypto"));
