@@ -1,19 +1,17 @@
 package main.java.pl.csrv.divinecraft.evirth.cryptomarket.resources;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import main.java.pl.csrv.divinecraft.evirth.cryptomarket.CryptoMarket;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ResourceManager {
     private Plugin plugin;
@@ -35,8 +33,22 @@ public class ResourceManager {
         try {
             for (String s : lang) {
                 String file = String.format("messages_%s.yml", s);
-                if (!new File(Paths.get(this.resourcePath, file).toString()).exists())
+                File f = new File(Paths.get(this.resourcePath, file).toString());
+                if (!f.exists()) {
                     this.exportResource(file);
+                } else {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(ResourceManager.class.getResourceAsStream(file)));
+                    long resourceFileLines = br.lines().count();
+                    long currentFileLines = Files.lines(Paths.get(f.getPath())).count();
+
+                    if (currentFileLines != resourceFileLines) {
+                        File fbak = new File(Paths.get(this.resourcePath, file + ".old").toString());
+                        if (f.renameTo(fbak)) {
+                            this.exportResource(file);
+                            this.plugin.getLogger().info(String.format("Resource file '%s' has been updated.", file));
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             this.plugin.getLogger().warning("Cannot generate default resource messages.");

@@ -27,7 +27,6 @@ public class HistoryCommand implements ICommand {
                 return true;
             }
 
-            boolean isAdmin = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN);
             OfflinePlayer o = null;
             if (strings.length > 1) {
                 o = Arrays.stream(Bukkit.getOfflinePlayers()).filter(f -> f.getName().equalsIgnoreCase(strings[1])).findFirst().orElse(null);
@@ -48,7 +47,8 @@ public class HistoryCommand implements ICommand {
                 return true;
             }
 
-            if (strings.length > 1 && !isAdmin && o != null) {
+            boolean extendedPersmission = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN) || commandSender.hasPermission(Permissions.CRYPTOMARKET_HISTORY_OTHERS);
+            if (strings.length > 1 && !extendedPersmission && o != null) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
                 return true;
             }

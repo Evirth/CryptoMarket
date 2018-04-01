@@ -31,8 +31,8 @@ public class BalanceCommand implements ICommand {
                 return true;
             }
 
-            boolean isAdmin = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN);
-            if (strings.length == 2 && !isAdmin) {
+            boolean extendedPermission = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN) || commandSender.hasPermission(Permissions.CRYPTOMARKET_BALANCE_OTHERS);
+            if (strings.length == 2 && !extendedPermission) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
                 return true;
             }

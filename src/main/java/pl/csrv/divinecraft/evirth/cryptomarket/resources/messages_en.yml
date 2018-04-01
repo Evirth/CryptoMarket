@@ -28,6 +28,7 @@ PlayerDoesntHaveCoin: "&5%s&f doesn't have any &6%s&f coin."
 PlayerDoesntHaveThatManyCoins: "&5%s&f doesn't have that many &6%s&f coins."
 PlayerNotFound: "Could not find the Player '&5%s&f'."
 Stats: "You've deposited &c%d&f and withdrawn &a%d&f &bDiamond(s)&f.\nFinal balance: "
+TransferSuccess: "You have successfully transferred &6%.8f %s&f (&6$%.2f&f - &b%d Diamods(s)&f) to player &5%s&f!"
 Usage: "Usage"
 WithdrawAll: "You have withdrawn &b%d Diamond(s)&f."
 

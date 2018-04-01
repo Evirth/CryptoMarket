@@ -321,6 +321,7 @@ public class Player {
 
             this.changeBalance(coin, -amountOfCrypto);
             this.printBalance();
+            this.player.sendMessage(String.format(CryptoMarket.resourceManager.getResource("TransferSuccess"), amountOfCrypto, coin.getSymbol(), coin.getPriceUSD() * amountOfCrypto, amountOfDiamonds, p2.name));
 
             double amountOfNewCoin = amountOfCrypto - (amountOfCrypto * CryptoMarket.config.getFee());
             int amountOfNewDiamonds = CoinHelper.calculateAmountOfDiamondsFromCoins(coin.getPriceUSD(), amountOfNewCoin);

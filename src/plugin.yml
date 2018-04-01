@@ -22,3 +22,16 @@ permission:
 
   cryptomarket.admin:
     description: Gives access to admin's CryptoMarket commands
+    children:
+      cryptomarket.balance.others: true
+      cryptomarket.history.others: true
+      cryptomarket.stats.others: true
+
+  cryptomarket.balance.others:
+    description: Gives access to '/cm balance <player>' command
+
+  cryptomarket.history.others:
+    description: Gives access to '/cm history <player>' command
+
+  cryptomarket.stats.others:
+    description: Gives access to '/cm stats <player>' command

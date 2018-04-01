@@ -31,8 +31,8 @@ public class StatsCommand implements ICommand {
                 return true;
             }
 
-            boolean isAdmin = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN);
-            if (strings.length == 2 && !isAdmin) {
+            boolean extendedPersmission = commandSender.hasPermission(Permissions.CRYPTOMARKET_ADMIN) || commandSender.hasPermission(Permissions.CRYPTOMARKET_STATS_OTHERS);
+            if (strings.length == 2 && !extendedPersmission) {
                 commandSender.sendMessage(CryptoMarket.resourceManager.getResource("MissingPermission"));
                 return true;
             }
